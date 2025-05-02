@@ -10,8 +10,10 @@ function App() {
       <header className="App-header">
         <h1>Budget Planner</h1>
       </header>
-      <main>
-        <BudgetCard entry={entry} setEntry={setEntry} />
+      <main className="body">
+        <div className="budget-container">
+          <BudgetCard entry={entry} setEntry={setEntry} />
+        </div>
       </main>
     </div>
   );
