@@ -1,10 +1,23 @@
 .App {
   background-color: #eaeaea;
+  min-height: 100vh;
+  min-width: 100vh;
 }
 
 .App-header {
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+}
+
+.budget-container {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  width: 50%;
+  min-height: 250px;
 }
