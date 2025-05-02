@@ -10,11 +10,13 @@ function BudgetCard({ entry, setEntry }) {
     getEnvelopes();
   }, [setEntry]);
   return (
-    <div className="data-container">
-      <h3>Entries</h3>
-      <ul className="data">
+    <div>
+      <div className="title">
+        <h2>Entries:</h2>
+      </div>
+      <ul>
         {entry.map((item) => (
-          <li key={item.id}>
+          <li key={item.id} className="data">
             {item.title}: ${item.budget}
           </li>
         ))}
