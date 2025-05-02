@@ -1,3 +1,7 @@
-.data-container {
-  margin-left: 20px;
+.title {
+  text-align: center;
+}
+.data {
+  font-size: 20px;
+  margin-top: 10px;
 }
