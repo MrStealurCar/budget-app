@@ -8,7 +8,6 @@ const handleEdit = async (id, title, budget, setEntry) => {
       },
       body: JSON.stringify({ title: title, budget: budget }),
     });
-
     const data = await fetchEnvelopes();
     setEntry(data);
   } catch (error) {
@@ -16,7 +15,17 @@ const handleEdit = async (id, title, budget, setEntry) => {
   }
 };
 
-const handleDelete = async () => {};
+const handleDelete = async (id, setEntry) => {
+  try {
+    await fetch(`http://localhost:3005/envelopes/${id}`, {
+      method: "DELETE",
+    });
+    const data = await fetchEnvelopes();
+    setEntry(data);
+  } catch (error) {
+    console.error("could not delete item:" + error);
+  }
+};
 
 const handleTransfer = async () => {};
 
