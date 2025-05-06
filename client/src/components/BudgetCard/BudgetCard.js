@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import fetchEnvelopes from "../../api/api";
 import "./BudgetCard.css";
 function BudgetCard({ entry, setEntry }) {
+  const [editId, setEditId] = useState(null);
   useEffect(() => {
     const getEnvelopes = async () => {
       const data = await fetchEnvelopes();
@@ -18,6 +19,11 @@ function BudgetCard({ entry, setEntry }) {
         {entry.map((item) => (
           <li key={item.id} className="data">
             {item.title}: ${item.budget}
+            <div className="handler-buttons">
+              <button>❌</button> {/* deletes entry */}
+              <button>✏️</button> {/* edits entry */}
+              <button>🔁</button> {/* transfers funds between entries */}
+            </div>
           </li>
         ))}
       </ul>
