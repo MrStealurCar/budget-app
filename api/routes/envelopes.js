@@ -75,7 +75,7 @@ envelopeRouter.delete("/:id", (req, res, next) => {
 
 // Route for transferring funds between two envelopes
 envelopeRouter.post("/:sourceId/:destinationId", (req, res, next) => {
-  const amountToTransfer = req.body.amount;
+  const amountToTransfer = Number(req.body.amount);
   const sourceId = req.params.sourceId;
   const sourceIdToNum = Number(sourceId);
 
