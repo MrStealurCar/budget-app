@@ -20,9 +20,10 @@ function BudgetCard({ entry, setEntry }) {
           <li key={item.id} className="data">
             {item.title}: ${item.budget}
             <div className="handler-buttons">
-              <button>❌</button> {/* deletes entry */}
-              <button>✏️</button> {/* edits entry */}
-              <button>🔁</button> {/* transfers funds between entries */}
+              <button title="Delete entry">❌</button> {/* deletes entry */}
+              <button title="Edit entry">✏️</button>
+              <button title="Transfer funds">🔁</button>
+              {/* transfers funds between entries */}
             </div>
           </li>
         ))}
