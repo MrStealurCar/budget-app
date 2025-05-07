@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import BudgetCard from "./components/BudgetCard/BudgetCard";
 function App() {
   const [entry, setEntry] = useState([]);
-  const [title, setTitle] = useState("");
 
   return (
     <div className="App">
