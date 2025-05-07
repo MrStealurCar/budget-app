@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import fetchEnvelopes from "../../api/api";
 import "./BudgetCard.css";
-import {
-  handleEdit,
-  handleDelete,
-  handleTransfer,
-} from "../../api/budgetActions";
+import EditMode from "../EditMode/EditMode";
+import { handleDelete, handleTransfer } from "../../api/budgetActions";
 function BudgetCard({ entry, setEntry }) {
   const [editId, setEditId] = useState(null);
   const [newTitle, setNewTitle] = useState("");
@@ -27,7 +24,14 @@ function BudgetCard({ entry, setEntry }) {
           <li key={item.id} className="data">
             {item.title}: ${item.budget}
             <div className="handler-buttons">
-              <button title="Delete entry">❌ {/* deletes entry */}</button>
+              <button
+                title="Delete entry"
+                onClick={() => {
+                  handleDelete(item.id, setEntry);
+                }}
+              >
+                ❌ {/* deletes entry */}
+              </button>
               <button
                 title="Edit entry"
                 onClick={() => {
@@ -39,29 +43,15 @@ function BudgetCard({ entry, setEntry }) {
                 ✏️ {/* edit entry */}
               </button>
               {editId === item.id && (
-                <div>
-                  <input
-                    className="input"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                  />
-
-                  <input
-                    className="input"
-                    value={newBudget}
-                    onChange={(e) => setNewBudget(Number(e.target.value))}
-                  />
-                  <button
-                    onClick={() => {
-                      handleEdit(item.id, newTitle, newBudget, setEntry);
-                      setEditId(null);
-                      setNewTitle("");
-                      setNewBudget(0);
-                    }}
-                  >
-                    Save
-                  </button>
-                </div>
+                <EditMode
+                  item={item}
+                  newTitle={newTitle}
+                  newBudget={newBudget}
+                  setEntry={setEntry}
+                  setNewTitle={setNewTitle}
+                  setNewBudget={setNewBudget}
+                  setEditId={setEditId}
+                />
               )}
               <button title="Transfer funds">
                 🔁 {/* transfers funds between entries */}
