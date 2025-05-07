@@ -27,6 +27,27 @@ const handleDelete = async (id, setEntry) => {
   }
 };
 
-const handleTransfer = async () => {};
+const handleTransfer = async (sourceId, destinationId, budget, setEntry) => {
+  try {
+    if (typeof budget === "number") {
+      await fetch(
+        `http://localhost:3005/envelopes/${sourceId}/${destinationId}`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ amount: budget }),
+        }
+      );
+      const data = await fetchEnvelopes();
+      setEntry(data);
+    } else {
+      throw new Error("input must be a number type");
+    }
+  } catch (error) {
+    console.error("could not transer funds:" + error);
+  }
+};
 
 export { handleEdit, handleDelete, handleTransfer };
