@@ -41,10 +41,13 @@ function BudgetCard({ entry, setEntry }) {
               {editId === item.id && (
                 <div>
                   <input
+                    className="input"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                   />
+
                   <input
+                    className="input"
                     value={newBudget}
                     onChange={(e) => setNewBudget(Number(e.target.value))}
                   />
