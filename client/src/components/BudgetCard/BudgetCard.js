@@ -21,7 +21,7 @@ function BudgetCard({ entry, setEntry }) {
       <div className="title">
         <h2>Entries:</h2>
       </div>
-      <ul>
+      <span>
         {entry.map((item) => (
           <li key={item.id} className="data">
             {item.title}: ${item.budget}
@@ -72,7 +72,7 @@ function BudgetCard({ entry, setEntry }) {
             )}
           </li>
         ))}
-      </ul>
+      </span>
     </div>
   );
 }
