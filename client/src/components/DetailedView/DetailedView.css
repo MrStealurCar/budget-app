@@ -1,0 +1,10 @@
+.entry-details {
+  display: flex;
+  font-size: 18px;
+  gap: 10px;
+}
+
+.close-button {
+  background-color: red;
+  border-radius: 5px;
+}
