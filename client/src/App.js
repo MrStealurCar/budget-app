@@ -14,7 +14,7 @@ function App() {
         <div className="budget-container">
           <BudgetCard entry={entry} setEntry={setEntry} />
         </div>
-        <div>
+        <div className="entry-container">
           <AddEntry setEntry={setEntry} />
         </div>
       </main>
