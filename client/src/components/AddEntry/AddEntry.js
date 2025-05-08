@@ -3,35 +3,54 @@ import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
 function AddEntry({ setEntry }) {
   const [title, setTitle] = useState("");
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   return (
-    <div>
-      <button onClick={() => setIsVisible((prevState) => !prevState)}>
-        Add Entry
-      </button>
+    <div className="new-entry-container">
+      <div>
+        <button
+          onClick={() => setIsVisible((prevState) => !prevState)}
+          className="add-button"
+        >
+          Add Entry
+        </button>
+      </div>
       {isVisible && (
         <div>
-          <input
-            value={title}
-            placeholder="Budget name"
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <input
-            value={budget}
-            type="number"
-            min={0}
-            onChange={(e) => setBudget(Number(e.target.value))}
-            required
-          />
-          <button onClick={() => handleCreate(title, budget, setEntry)}>
-            Save
-          </button>
-          <button onClick={() => setIsVisible((prevState) => !prevState)}>
-            Cancel
-          </button>
+          <div>
+            <input
+              className="input-fields"
+              value={title}
+              placeholder="Budget name"
+              type="text"
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <input
+              className="input-fields"
+              value={budget}
+              type="text"
+              placeholder="0"
+              onChange={(e) => setBudget(e.target.value)}
+              required
+            />
+          </div>
+          <div className="button-container">
+            <button
+              className="action-buttons"
+              onClick={() => {
+                handleCreate(title, budget, setEntry, setTitle, setBudget);
+              }}
+            >
+              Save
+            </button>
+            <button
+              className="action-buttons"
+              onClick={() => setIsVisible((prevState) => !prevState)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>
