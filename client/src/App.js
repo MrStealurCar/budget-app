@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
 import BudgetCard from "./components/BudgetCard/BudgetCard";
+import AddEntry from "./components/AddEntry/AddEntry";
 function App() {
   const [entry, setEntry] = useState([]);
 
@@ -12,6 +13,9 @@ function App() {
       <main className="body">
         <div className="budget-container">
           <BudgetCard entry={entry} setEntry={setEntry} />
+        </div>
+        <div>
+          <AddEntry setEntry={setEntry} />
         </div>
       </main>
     </div>
