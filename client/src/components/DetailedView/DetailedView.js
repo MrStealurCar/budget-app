@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-
+import React from "react";
+import "./DetailedView.css";
 function DetailedView({ item, setViewId }) {
   return (
     <div>
-      <ul>
-        <li>ID: {item.id}</li>
-        <li>Title: {item.title}</li>
-        <li>Budget: {item.budget}</li>
-      </ul>
+      <span className="entry-details">
+        <span>ID: {item.id},</span>
+        <span>Title: {item.title},</span>
+        <span>Budget: ${item.budget}</span>
+      </span>
       <button
+        className="close-button"
         onClick={() => {
           setViewId(null);
         }}
