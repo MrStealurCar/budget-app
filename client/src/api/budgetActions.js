@@ -1,4 +1,21 @@
 import fetchEnvelopes from "./api";
+
+const handleCreate = async (title, budget, setEntry) => {
+  try {
+    await fetch(`http://localhost:3005/envelopes`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ title: title, budget: budget }),
+    });
+    const data = await fetchEnvelopes();
+    setEntry(data);
+  } catch (error) {
+    console.error("could not create entry" + error);
+  }
+};
+
 const handleEdit = async (id, title, budget, setEntry) => {
   try {
     await fetch(`http://localhost:3005/envelopes/${id}`, {
@@ -50,4 +67,4 @@ const handleTransfer = async (sourceId, destinationId, budget, setEntry) => {
   }
 };
 
-export { handleEdit, handleDelete, handleTransfer };
+export { handleCreate, handleEdit, handleDelete, handleTransfer };
