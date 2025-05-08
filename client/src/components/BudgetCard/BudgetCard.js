@@ -66,10 +66,10 @@ function BudgetCard({ entry, setEntry }) {
               >
                 👁
               </button>
-              {viewId === item.id && (
-                <DetailedView item={item} setViewId={setViewId} />
-              )}
             </div>
+            {viewId === item.id && (
+              <DetailedView item={item} setViewId={setViewId} />
+            )}
           </li>
         ))}
       </ul>
