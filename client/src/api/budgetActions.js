@@ -1,6 +1,6 @@
 import fetchEnvelopes from "./api";
 
-const handleCreate = async (title, budget, setEntry) => {
+const handleCreate = async (title, budget, setEntry, setTitle, setBudget) => {
   try {
     await fetch(`http://localhost:3005/envelopes`, {
       method: "POST",
@@ -11,6 +11,8 @@ const handleCreate = async (title, budget, setEntry) => {
     });
     const data = await fetchEnvelopes();
     setEntry(data);
+    setTitle("");
+    setBudget("");
   } catch (error) {
     console.error("could not create entry" + error);
   }
