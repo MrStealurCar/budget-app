@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
-function AddEntry() {
+function AddEntry({ setEntry }) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState(0);
 
@@ -21,7 +21,9 @@ function AddEntry() {
         onChange={(e) => setBudget(Number(e.target.value))}
         required
       />
-      <button onClick={handleCreate}>Save</button>
+      <button onClick={() => handleCreate(title, budget, setEntry)}>
+        Save
+      </button>
       <button>Cancel</button>
     </div>
   );
