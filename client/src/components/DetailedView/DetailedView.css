@@ -1,11 +1,11 @@
-.entry-details {
-  display: flex;
+.entry-info {
+  margin-right: 5px;
   font-size: 18px;
-  gap: 10px;
 }
 
 .close-button {
   background-color: red;
+  font-size: 15px;
   border-radius: 5px;
   margin-left: 5px;
 }
