@@ -10,7 +10,6 @@
   margin: 10px 0px;
 }
 
-.handler-buttons {
-  display: flex;
-  gap: 5px;
+.detailed-view {
+  margin-top: 5px;
 }
