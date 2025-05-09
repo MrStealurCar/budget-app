@@ -6,8 +6,8 @@ function AddEntry({ setEntry }) {
   const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   return (
-    <div className="new-entry-container">
-      <div>
+    <div>
+      <div className="create-entry">
         <button
           onClick={() => setIsVisible((prevState) => !prevState)}
           className="add-button"
@@ -17,9 +17,10 @@ function AddEntry({ setEntry }) {
       </div>
       {isVisible && (
         <div>
-          <div className="input-fields">
+          <div className="input-container">
             <input
               value={title}
+              className="entry-input"
               placeholder="Budget name"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
@@ -27,6 +28,7 @@ function AddEntry({ setEntry }) {
             />
             <input
               value={budget}
+              className="entry-input"
               type="number"
               min={0}
               placeholder="Amount"
