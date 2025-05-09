@@ -11,10 +11,10 @@ function DetailedView({
 }) {
   return (
     <div>
-      <span className="entry-details">
-        <span>ID: {item.id},</span>
-        <span>Title: {item.title},</span>
-        <span>Budget: ${item.budget}</span>
+      <span>
+        <span className="entry-info">ID: {item.id},</span>
+        <span className="entry-info">Title: {item.title},</span>
+        <span className="entry-info">Budget: ${item.budget}</span>
       </span>
       <div className="action-buttons">
         <ActionButtons
