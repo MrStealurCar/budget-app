@@ -1,6 +1,6 @@
-.new-entry-container {
+.create-entry {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
 
 .add-button {
@@ -10,18 +10,25 @@
   font-size: 15px;
 }
 
-.input-fields {
+.input-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 10px;
-  align-items: center;
-  align-content: center;
+  gap: 5px;
+}
+
+.entry-input {
+  font-size: 18px;
 }
 
 .button-container {
   display: flex;
-  width: 50%;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .action-buttons {
   border-radius: 5px;
+  font-size: 15px;
   margin-top: 10px;
 }
