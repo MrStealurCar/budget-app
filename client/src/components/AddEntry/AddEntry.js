@@ -17,9 +17,8 @@ function AddEntry({ setEntry }) {
       </div>
       {isVisible && (
         <div>
-          <div>
+          <div className="input-fields">
             <input
-              className="input-fields"
               value={title}
               placeholder="Budget name"
               type="text"
@@ -27,10 +26,10 @@ function AddEntry({ setEntry }) {
               required
             />
             <input
-              className="input-fields"
               value={budget}
-              type="text"
-              placeholder="0"
+              type="number"
+              min={0}
+              placeholder="Amount"
               onChange={(e) => setBudget(e.target.value)}
               required
             />
