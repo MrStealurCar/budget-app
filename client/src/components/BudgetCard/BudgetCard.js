@@ -3,7 +3,6 @@ import fetchEnvelopes from "../../api/api";
 import "./BudgetCard.css";
 import EditMode from "../EditMode/EditMode";
 import DetailedView from "../DetailedView/DetailedView";
-import { handleDelete, handleTransfer } from "../../api/budgetActions";
 function BudgetCard({ entry, setEntry }) {
   const [editId, setEditId] = useState(null);
   const [viewId, setViewId] = useState(null);
@@ -25,50 +24,35 @@ function BudgetCard({ entry, setEntry }) {
         {entry.map((item) => (
           <li key={item.id} className="data">
             {item.title}: ${item.budget}
-            <div className="handler-buttons">
-              <button
-                title="Delete entry"
-                onClick={() => {
-                  handleDelete(item.id, setEntry);
-                }}
-              >
-                ❌ {/* deletes entry */}
-              </button>
-              <button
-                title="Edit entry"
-                onClick={() => {
-                  setEditId(item.id);
-                  setNewTitle(item.title);
-                  setNewBudget(item.budget);
-                }}
-              >
-                ✏️ {/* edit entry */}
-              </button>
-              {editId === item.id && (
-                <EditMode
-                  item={item}
-                  newTitle={newTitle}
-                  newBudget={newBudget}
-                  setEntry={setEntry}
-                  setNewTitle={setNewTitle}
-                  setNewBudget={setNewBudget}
-                  setEditId={setEditId}
-                />
-              )}
-              <button title="Transfer funds">
-                🔁 {/* transfers funds between entries */}
-              </button>
-              <button
-                title="Detailed View"
-                onClick={() => {
-                  setViewId(item.id);
-                }}
-              >
-                👁
-              </button>
-            </div>
+            <button
+              className="detailed-view"
+              title="Detailed View"
+              onClick={() => {
+                setViewId(item.id);
+              }}
+            >
+              👁
+            </button>
+            {editId === item.id && (
+              <EditMode
+                item={item}
+                newTitle={newTitle}
+                newBudget={newBudget}
+                setEntry={setEntry}
+                setNewTitle={setNewTitle}
+                setNewBudget={setNewBudget}
+                setEditId={setEditId}
+              />
+            )}
             {viewId === item.id && (
-              <DetailedView item={item} setViewId={setViewId} />
+              <DetailedView
+                item={item}
+                setViewId={setViewId}
+                setEditId={setEditId}
+                setNewTitle={setNewTitle}
+                setNewBudget={setNewBudget}
+                setEntry={setEntry}
+              />
             )}
           </li>
         ))}
