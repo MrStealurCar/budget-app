@@ -6,6 +6,7 @@ button {
   background-color: #eaeaea;
   min-height: 100vh;
   width: 100%;
+  padding-top: 50px;
 }
 
 .App-header {
