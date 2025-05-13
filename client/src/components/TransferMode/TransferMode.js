@@ -6,7 +6,7 @@ function TransferMode({ sourceId, entry, setEntry }) {
   const [destination, setDestination] = useState(null);
 
   return (
-    <div className="test">
+    <div className="transfer-mode">
       <input
         value={transferAmount}
         placeholder="Amount"
@@ -14,7 +14,8 @@ function TransferMode({ sourceId, entry, setEntry }) {
         onChange={(e) => setTransferAmount(Number(e.target.value))}
         required
       />
-      <select onClick={(e) => setDestination(Number(e.target.value))} required>
+      <select onChange={(e) => setDestination(Number(e.target.value))} required>
+        <option value={""}>Select an Entry</option>
         {entry
           .filter((item) => item.id !== sourceId)
           .map((item) => (
