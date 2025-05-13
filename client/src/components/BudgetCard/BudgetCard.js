@@ -20,9 +20,9 @@ function BudgetCard({ entry, setEntry }) {
       <div className="title">
         <h2>Entries:</h2>
       </div>
-      <span className="data-container">
+      <div className="data-container">
         {entry.map((item) => (
-          <p key={item.id}>
+          <span key={item.id} className="list-items">
             {item.title}: ${item.budget}
             <button
               className="detailed-view"
@@ -36,27 +36,20 @@ function BudgetCard({ entry, setEntry }) {
             {viewId === item.id && (
               <DetailedView
                 item={item}
+                editId={editId}
                 setViewId={setViewId}
                 setEditId={setEditId}
-                setNewTitle={setNewTitle}
-                setNewBudget={setNewBudget}
-                setEntry={setEntry}
-              />
-            )}
-            {editId === item.id && (
-              <EditMode
-                item={item}
                 newTitle={newTitle}
-                newBudget={newBudget}
-                setEntry={setEntry}
                 setNewTitle={setNewTitle}
+                newBudget={newBudget}
                 setNewBudget={setNewBudget}
-                setEditId={setEditId}
+                entry={entry}
+                setEntry={setEntry}
               />
             )}
-          </p>
+          </span>
         ))}
-      </span>
+      </div>
     </div>
   );
 }
