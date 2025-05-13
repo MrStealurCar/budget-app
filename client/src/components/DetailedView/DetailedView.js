@@ -1,12 +1,17 @@
 import React from "react";
 import "./DetailedView.css";
 import ActionButtons from "../ActionButtons/ActionButtons";
+import EditMode from "../EditMode/EditMode";
 function DetailedView({
   item,
+  editId,
   setViewId,
   setEditId,
+  newTitle,
   setNewTitle,
+  newBudget,
   setNewBudget,
+  entry,
   setEntry,
 }) {
   return (
@@ -22,6 +27,7 @@ function DetailedView({
           setNewTitle={setNewTitle}
           setNewBudget={setNewBudget}
           item={item}
+          entry={entry}
           setEntry={setEntry}
         />
         <button
@@ -33,6 +39,17 @@ function DetailedView({
           Close
         </button>
       </div>
+      {editId === item.id && (
+        <EditMode
+          item={item}
+          newTitle={newTitle}
+          newBudget={newBudget}
+          setEntry={setEntry}
+          setNewTitle={setNewTitle}
+          setNewBudget={setNewBudget}
+          setEditId={setEditId}
+        />
+      )}
     </div>
   );
 }
