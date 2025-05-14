@@ -1,5 +1,9 @@
-button {
+button:hover {
   cursor: pointer;
+}
+
+button:active {
+  transform: translateY(2px);
 }
 
 .App {
