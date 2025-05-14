@@ -1,3 +1,7 @@
 .input {
   margin-right: 5px;
 }
+
+.save-button {
+  border-radius: 5px;
+}

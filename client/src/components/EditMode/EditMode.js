@@ -24,6 +24,7 @@ function EditMode({
         onChange={(e) => setNewBudget(Number(e.target.value))}
       />
       <button
+        className="save-button"
         onClick={() => {
           handleEdit(item.id, newTitle, newBudget, setEntry);
           setEditId(null);
