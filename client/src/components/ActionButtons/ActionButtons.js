@@ -1,12 +1,14 @@
 import React from "react";
 import "./ActionButtons.css";
-import { handleDelete, handleTransfer } from "../../api/budgetActions";
+import { handleDelete } from "../../api/budgetActions";
 function ActionButtons({
   setEditId,
   setNewTitle,
   setNewBudget,
   item,
   setEntry,
+  transferId,
+  setTransferId,
 }) {
   return (
     <div className="handler-buttons">
@@ -29,7 +31,12 @@ function ActionButtons({
         ✏️ {/* edit entry */}
       </button>
 
-      <button title="Transfer funds">
+      <button
+        title="Transfer funds"
+        onClick={() => {
+          setTransferId(transferId === item.id ? null : item.id);
+        }}
+      >
         🔁 {/* transfers funds between entries */}
       </button>
     </div>
