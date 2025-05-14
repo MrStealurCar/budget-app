@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./TransferMode.css";
 import { handleTransfer } from "../../api/budgetActions";
 function TransferMode({ sourceId, entry, setEntry }) {
-  const [transferAmount, setTransferAmount] = useState(0);
+  const [transferAmount, setTransferAmount] = useState("");
   const [destination, setDestination] = useState(null);
 
   return (
@@ -25,6 +25,7 @@ function TransferMode({ sourceId, entry, setEntry }) {
           ))}
       </select>
       <button
+        className="transfer-button"
         onClick={() => {
           handleTransfer(sourceId, destination, transferAmount, setEntry);
         }}
