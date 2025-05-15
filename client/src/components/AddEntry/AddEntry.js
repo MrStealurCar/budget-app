@@ -40,7 +40,13 @@ function AddEntry({ setEntry }) {
             <button
               className="action-buttons"
               onClick={() => {
-                handleCreate(title, budget, setEntry, setTitle, setBudget);
+                if (title !== "" && budget !== "") {
+                  handleCreate(title, budget, setEntry, setTitle, setBudget);
+                } else {
+                  alert(
+                    "Could not create entry, please ensure both fields are filled out."
+                  );
+                }
               }}
             >
               Save
