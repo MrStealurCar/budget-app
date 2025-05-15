@@ -19,11 +19,11 @@ function DetailedView({
 }) {
   return (
     <div>
-      <span>
+      <div className="info-container">
         <span className="entry-info">ID: {item.id},</span>
         <span className="entry-info">Title: {item.title},</span>
         <span className="entry-info">Budget: ${item.budget}</span>
-      </span>
+      </div>
       <div className="action-buttons">
         <ActionButtons
           setEditId={setEditId}
