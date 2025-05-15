@@ -6,4 +6,12 @@
 
 .transfer-button {
   border-radius: 5px;
+  max-width: 75px;
+}
+
+@media screen and (max-width: 450px) {
+  .transfer-mode {
+    flex-direction: column;
+    align-items: center;
+  }
 }
