@@ -1,3 +1,8 @@
+.info-container {
+  display: flex;
+  justify-content: center;
+}
+
 .entry-info {
   margin-right: 5px;
   font-size: 18px;
@@ -14,4 +19,10 @@
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: 450px) {
+  .info-container {
+    flex-direction: column;
+  }
 }
