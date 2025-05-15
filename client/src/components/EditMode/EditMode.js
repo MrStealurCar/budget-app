@@ -11,7 +11,7 @@ function EditMode({
   setEditId,
 }) {
   return (
-    <div>
+    <div className="edit-container">
       <input
         className="input"
         value={newTitle}
