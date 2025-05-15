@@ -19,3 +19,9 @@
   border: none;
   background-color: #eaeaea;
 }
+
+@media screen and (max-width: 450px) {
+  .data-container {
+    margin-bottom: 5px;
+  }
+}
