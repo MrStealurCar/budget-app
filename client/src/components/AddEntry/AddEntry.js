@@ -54,7 +54,11 @@ function AddEntry({ setEntry }) {
             </button>
             <button
               className="action-buttons"
-              onClick={() => setIsVisible((prevState) => !prevState)}
+              onClick={() => {
+                setIsVisible((prevState) => !prevState);
+                setTitle("");
+                setBudget("");
+              }}
             >
               Cancel
             </button>
