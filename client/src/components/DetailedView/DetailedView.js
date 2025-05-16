@@ -39,6 +39,8 @@ function DetailedView({
           className="close-button"
           onClick={() => {
             setViewId(null);
+            setEditId(null);
+            setTransferId(null);
           }}
         >
           Close
