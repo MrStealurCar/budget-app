@@ -42,6 +42,7 @@ function AddEntry({ setEntry }) {
               onClick={() => {
                 if (title !== "" && budget !== "") {
                   handleCreate(title, budget, setEntry, setTitle, setBudget);
+                  setIsVisible(null);
                 } else {
                   alert(
                     "Could not create entry, please ensure both fields are filled out."
