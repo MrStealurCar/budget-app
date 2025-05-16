@@ -32,7 +32,7 @@ function AddEntry({ setEntry }) {
               type="number"
               min={0}
               placeholder="Amount"
-              onChange={(e) => setBudget(e.target.value)}
+              onChange={(e) => setBudget(Number(e.target.value))}
               required
             />
           </div>
