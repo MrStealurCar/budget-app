@@ -29,6 +29,8 @@ function BudgetCard({ entry, setEntry }) {
               title="Detailed View"
               onClick={() => {
                 setViewId(item.id);
+                setEditId(null);
+                setTransferId(null);
               }}
             >
               👁
