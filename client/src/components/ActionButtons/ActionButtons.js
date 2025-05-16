@@ -26,6 +26,7 @@ function ActionButtons({
           setEditId(item.id);
           setNewTitle(item.title);
           setNewBudget(item.budget);
+          setTransferId(null);
         }}
       >
         ✏️ {/* edit entry */}
@@ -35,6 +36,7 @@ function ActionButtons({
         title="Transfer funds"
         onClick={() => {
           setTransferId(transferId === item.id ? null : item.id);
+          setEditId(null);
         }}
       >
         🔁 {/* transfers funds between entries */}
