@@ -26,6 +26,7 @@ function DetailedView({
       </div>
       <div className="action-buttons">
         <ActionButtons
+          editId={editId}
           setEditId={setEditId}
           setNewTitle={setNewTitle}
           setNewBudget={setNewBudget}
