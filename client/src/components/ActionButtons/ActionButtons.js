@@ -2,6 +2,7 @@ import React from "react";
 import "./ActionButtons.css";
 import { handleDelete } from "../../api/budgetActions";
 function ActionButtons({
+  editId,
   setEditId,
   setNewTitle,
   setNewBudget,
@@ -23,7 +24,7 @@ function ActionButtons({
       <button
         title="Edit entry"
         onClick={() => {
-          setEditId(item.id);
+          setEditId(editId === item.id ? null : item.id);
           setNewTitle(item.title);
           setNewBudget(item.budget);
           setTransferId(null);
