@@ -33,7 +33,12 @@ function App() {
       </header>
       <main className="body">
         <div className="budget-container">
-          <BudgetCard entry={entry} setEntry={setEntry} />
+          <BudgetCard
+            entry={entry}
+            setEntry={setEntry}
+            savedTotal={savedTotal}
+            setSavedTotal={setSavedTotal}
+          />
         </div>
         <div className="entry-container">
           <AddEntry
