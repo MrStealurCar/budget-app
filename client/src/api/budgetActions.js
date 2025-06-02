@@ -1,6 +1,14 @@
 import fetchEnvelopes from "./api";
 
-const handleCreate = async (title, budget, setEntry, setTitle, setBudget) => {
+const handleCreate = async (
+  title,
+  budget,
+  setEntry,
+  setTitle,
+  setBudget,
+  savedTotal,
+  setSavedTotal
+) => {
   try {
     await fetch(`http://localhost:3005/envelopes`, {
       method: "POST",
@@ -11,6 +19,7 @@ const handleCreate = async (title, budget, setEntry, setTitle, setBudget) => {
     });
     const data = await fetchEnvelopes();
     setEntry(data);
+    setSavedTotal(savedTotal - budget);
     setTitle("");
     setBudget("");
   } catch (error) {
@@ -18,7 +27,16 @@ const handleCreate = async (title, budget, setEntry, setTitle, setBudget) => {
   }
 };
 
-const handleEdit = async (id, title, budget, setEntry) => {
+const handleEdit = async (
+  id,
+  originalBudget,
+  title,
+  budget,
+  setEntry,
+  savedTotal,
+  setSavedTotal
+) => {
+  let difference = budget - originalBudget;
   try {
     await fetch(`http://localhost:3005/envelopes/${id}`, {
       method: "PUT",
@@ -29,6 +47,7 @@ const handleEdit = async (id, title, budget, setEntry) => {
     });
     const data = await fetchEnvelopes();
     setEntry(data);
+    setSavedTotal(savedTotal - difference);
   } catch (error) {
     console.error("could not update item:" + error);
   }
