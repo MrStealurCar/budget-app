@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
-function AddEntry({ setEntry }) {
+function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -41,7 +41,15 @@ function AddEntry({ setEntry }) {
               className="action-buttons"
               onClick={() => {
                 if (title !== "" && budget !== "") {
-                  handleCreate(title, budget, setEntry, setTitle, setBudget);
+                  handleCreate(
+                    title,
+                    budget,
+                    setEntry,
+                    setTitle,
+                    setBudget,
+                    savedTotal,
+                    setSavedTotal
+                  );
                   setIsVisible(null);
                 } else {
                   alert(
