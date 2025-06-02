@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import fetchEnvelopes from "../../api/api";
 import "./BudgetCard.css";
 import DetailedView from "../DetailedView/DetailedView";
-function BudgetCard({ entry, setEntry }) {
+function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal }) {
   const [editId, setEditId] = useState(null);
   const [viewId, setViewId] = useState(null);
   const [transferId, setTransferId] = useState(null);
@@ -49,6 +49,8 @@ function BudgetCard({ entry, setEntry }) {
                 setEntry={setEntry}
                 transferId={transferId}
                 setTransferId={setTransferId}
+                savedTotal={savedTotal}
+                setSavedTotal={setSavedTotal}
               />
             )}
           </span>
