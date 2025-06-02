@@ -15,6 +15,14 @@ This project uses the budget-api I built as part of Codecademys Back-End Enginee
 2. Edit the current entries title or amount (✏️)
 3. Transfer funds between 2 entries (🔁)
 
+I am currently refactoring this app to become more practical and real-world. Some new features will include:
+
+- Letting the user set their own budget
+- Replacing the default list of entries with a prompt telling the user to add new ones
+- Automatically deducting from the user's set budget as they create new entries
+
+Check back soon to see the finished product!
+
 ## Why I built this
 
 This was an impromptu portfolio project I decided to create after completing the budget-api project. At first, the API could only be tested in Postman, and the lack of user interface made it feel incomplete to me. So, I decided to put my skills with React to use and build a complete fullstack application using the API.
