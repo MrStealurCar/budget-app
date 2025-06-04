@@ -1,7 +1,12 @@
 const express = require("express");
 const envelopeRouter = express.Router();
 const { mockEnvelopes } = require("../db.js");
-const { getAllEntries, createNewEntry } = require("../postgres.js");
+const {
+  getAllEntries,
+  createNewEntry,
+  deleteEntry,
+} = require("../postgres.js");
+
 // Route for getting all envelopes in mockEnvelopes
 envelopeRouter.get("/", async (req, res, next) => {
   const response = await getAllEntries();
@@ -46,18 +51,11 @@ envelopeRouter.put("/:id", (req, res, next) => {
 });
 
 // Route for deleting envelopes based on ID
-envelopeRouter.delete("/:id", (req, res, next) => {
+envelopeRouter.delete("/:id", async (req, res, next) => {
   const envelopeId = req.params.id;
-  const turnIdToNum = Number(envelopeId);
-  const envelopeToDelete = mockEnvelopes.findIndex(
-    (envelope) => envelope.id === turnIdToNum
-  );
-  if (envelopeToDelete !== -1) {
-    mockEnvelopes.splice(envelopeToDelete, 1);
-    res.status(204).send("Envelope successfully deleted");
-  } else {
-    res.status(404).send();
-  }
+  await deleteEntry(envelopeId);
+
+  res.status(204).send();
 });
 
 // Route for transferring funds between two envelopes
