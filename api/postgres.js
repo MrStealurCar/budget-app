@@ -32,4 +32,16 @@ const createNewEntry = async (title, budget) => {
   }
 };
 
-module.exports = { getAllEntries, createNewEntry };
+const deleteEntry = async (id) => {
+  try {
+    const result = await db.query(
+      "DELETE FROM budget_entries WHERE id=$1 RETURNING *",
+      [id]
+    );
+    return result.rows;
+  } catch (err) {
+    console.error("Could not delete entry", err);
+  }
+};
+
+module.exports = { getAllEntries, createNewEntry, deleteEntry };
