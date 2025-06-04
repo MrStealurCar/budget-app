@@ -1,7 +1,7 @@
 const express = require("express");
 const envelopeRouter = express.Router();
 const { mockEnvelopes } = require("../db.js");
-const { getAllEntries } = require("../postgres.js");
+const { getAllEntries, createNewEntry } = require("../postgres.js");
 // Route for getting all envelopes in mockEnvelopes
 envelopeRouter.get("/", async (req, res, next) => {
   const response = await getAllEntries();
@@ -9,23 +9,9 @@ envelopeRouter.get("/", async (req, res, next) => {
 });
 
 //Route for adding envelopes to mockEnvelopes
-envelopeRouter.post("/", (req, res, next) => {
-  //finds the highest ID in the mockEnvelopes array
-  const findHighestId = mockEnvelopes.reduce((acc, currentVal) => {
-    if (acc.id > currentVal.id) {
-      return acc.id;
-    } else {
-      return currentVal.id;
-    }
-  }, 0); // Starts at 0 to handle an empty array
-  const newBudget = {
-    id: findHighestId + 1,
-    title: req.body.title,
-    budget: req.body.budget,
-  };
-  mockEnvelopes.push(newBudget);
-
-  res.status(201).send(mockEnvelopes);
+envelopeRouter.post("/", async (req, res, next) => {
+  const newBudget = await createNewEntry(req.body.title, req.body.budget);
+  res.status(201).send(newBudget);
 });
 
 // Route for getting envelope based on ID
