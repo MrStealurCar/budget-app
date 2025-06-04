@@ -1,10 +1,11 @@
 const express = require("express");
 const envelopeRouter = express.Router();
 const { mockEnvelopes } = require("../db.js");
-
+const { getAllEntries } = require("../postgres.js");
 // Route for getting all envelopes in mockEnvelopes
-envelopeRouter.get("/", (req, res, next) => {
-  res.send(mockEnvelopes);
+envelopeRouter.get("/", async (req, res, next) => {
+  const response = await getAllEntries();
+  res.send(response);
 });
 
 //Route for adding envelopes to mockEnvelopes
