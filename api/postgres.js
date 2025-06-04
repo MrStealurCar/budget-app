@@ -10,3 +10,14 @@ const db = new Client({
 });
 
 db.connect();
+
+const getAllEntries = async () => {
+  try {
+    const result = await db.query("SELECT * FROM budget_entries;");
+    return result.rows;
+  } catch (err) {
+    console.error("DB query error:", err);
+  }
+};
+
+module.exports = { getAllEntries };
