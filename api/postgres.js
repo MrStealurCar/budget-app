@@ -20,4 +20,16 @@ const getAllEntries = async () => {
   }
 };
 
-module.exports = { getAllEntries };
+const createNewEntry = async (title, budget) => {
+  try {
+    const result = await db.query(
+      "INSERT INTO budget_entries(title, budget) VALUES($1, $2) RETURNING *",
+      [title, budget]
+    );
+    return result.rows[0];
+  } catch (err) {
+    console.error("Could not create entry", err);
+  }
+};
+
+module.exports = { getAllEntries, createNewEntry };
