@@ -32,6 +32,18 @@ const createNewEntry = async (title, budget) => {
   }
 };
 
+const editEntry = async (id, title, budget) => {
+  try {
+    const result = await db.query(
+      "UPDATE budget_entries SET title = $2, budget = $3 WHERE id = $1 RETURNING *",
+      [id, title, budget]
+    );
+    return result.rows[0];
+  } catch (err) {
+    console.error("Could not edit entry", err);
+  }
+};
+
 const deleteEntry = async (id) => {
   try {
     const result = await db.query(
@@ -44,4 +56,4 @@ const deleteEntry = async (id) => {
   }
 };
 
-module.exports = { getAllEntries, createNewEntry, deleteEntry };
+module.exports = { getAllEntries, createNewEntry, editEntry, deleteEntry };
