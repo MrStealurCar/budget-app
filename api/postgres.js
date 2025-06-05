@@ -13,7 +13,7 @@ db.connect();
 
 const getAllEntries = async () => {
   try {
-    const result = await db.query("SELECT * FROM budget_entries;");
+    const result = await db.query("SELECT * FROM budget_entries ORDER BY id;");
     return result.rows;
   } catch (err) {
     console.error("DB query error:", err);
@@ -56,4 +56,32 @@ const deleteEntry = async (id) => {
   }
 };
 
-module.exports = { getAllEntries, createNewEntry, editEntry, deleteEntry };
+const transferBetweenEntries = async (
+  sourceId,
+  destinationId,
+  budgetToTransfer
+) => {
+  try {
+    await db.query("BEGIN");
+    await db.query(
+      "UPDATE budget_entries SET budget = budget - $2 WHERE id = $1",
+      [sourceId, budgetToTransfer]
+    );
+    await db.query(
+      "UPDATE budget_entries SET budget = budget + $2 WHERE id = $1",
+      [destinationId, budgetToTransfer]
+    );
+    await db.query("COMMIT");
+  } catch (err) {
+    await db.query("ROLLBACK");
+    console.error("Error transferring budgets", err);
+  }
+};
+
+module.exports = {
+  getAllEntries,
+  createNewEntry,
+  editEntry,
+  deleteEntry,
+  transferBetweenEntries,
+};
