@@ -6,6 +6,7 @@ const {
   createNewEntry,
   editEntry,
   deleteEntry,
+  transferBetweenEntries,
 } = require("../postgres.js");
 
 // Route for getting all envelopes in mockEnvelopes
@@ -56,7 +57,7 @@ envelopeRouter.delete("/:id", async (req, res, next) => {
 });
 
 // Route for transferring funds between two envelopes
-envelopeRouter.post("/:sourceId/:destinationId", (req, res, next) => {
+envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
   const amountToTransfer = Number(req.body.amount);
   const sourceId = req.params.sourceId;
   const sourceIdToNum = Number(sourceId);
@@ -64,27 +65,17 @@ envelopeRouter.post("/:sourceId/:destinationId", (req, res, next) => {
   const destinationId = req.params.destinationId;
   const destinationIdToNum = Number(destinationId);
 
-  const sourceEnvelopeToUpdate = mockEnvelopes.find(
-    (currentVal) => currentVal.id === sourceIdToNum
-  );
-  const destinationEnvelopeToUpdate = mockEnvelopes.find(
-    (currentVal) => currentVal.id === destinationIdToNum
-  );
-
-  if (
-    sourceEnvelopeToUpdate &&
-    destinationEnvelopeToUpdate &&
-    sourceEnvelopeToUpdate.budget > amountToTransfer
-  ) {
-    sourceEnvelopeToUpdate.budget -= amountToTransfer;
-    destinationEnvelopeToUpdate.budget += amountToTransfer;
+  if (!sourceId) {
+    res.status(404).send();
+  } else {
+    await transferBetweenEntries(
+      sourceIdToNum,
+      destinationIdToNum,
+      amountToTransfer
+    );
     res.status(200).send({
       message: "Transfer successful",
-      sourceEnvelope: sourceEnvelopeToUpdate,
-      destinationEnvelope: destinationEnvelopeToUpdate,
     });
-  } else {
-    res.status(404).send();
   }
 });
 
