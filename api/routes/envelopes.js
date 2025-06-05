@@ -4,6 +4,7 @@ const { mockEnvelopes } = require("../db.js");
 const {
   getAllEntries,
   createNewEntry,
+  editEntry,
   deleteEntry,
 } = require("../postgres.js");
 
@@ -35,19 +36,15 @@ envelopeRouter.get("/:id", (req, res, next) => {
 });
 
 // Route for updating envelope based on ID
-envelopeRouter.put("/:id", (req, res, next) => {
+envelopeRouter.put("/:id", async (req, res, next) => {
   const envelopeId = req.params.id;
-  const turnIdToNum = Number(envelopeId);
-  const foundEnvelope = mockEnvelopes.find(
-    (currentVal) => currentVal.id === turnIdToNum
-  );
-  if (foundEnvelope) {
-    foundEnvelope.title = req.body.title;
-    foundEnvelope.budget = req.body.budget;
-    res.send(foundEnvelope);
-  } else {
+  const envelopeTitle = req.body.title;
+  const envelopeBudget = req.body.budget;
+  if (!envelopeId) {
     res.status(404).send();
   }
+  const result = await editEntry(envelopeId, envelopeTitle, envelopeBudget);
+  res.send(result);
 });
 
 // Route for deleting envelopes based on ID
