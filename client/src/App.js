@@ -4,8 +4,8 @@ import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
 function App() {
   const [entry, setEntry] = useState([]);
-  const [totalBudget, setTotalBudget] = useState(0);
-  const [savedTotal, setSavedTotal] = useState(0);
+  const [totalBudget, setTotalBudget] = useState("");
+  const [savedTotal, setSavedTotal] = useState("");
   return (
     <div className="App">
       <header className="App-header">
@@ -29,7 +29,7 @@ function App() {
             Save
           </button>
         </div>
-        <h3>Your budget is ${savedTotal}</h3>
+        <h3>Your budget is ${Number(savedTotal)}</h3>
       </header>
       <main className="body">
         <div className="budget-container">
