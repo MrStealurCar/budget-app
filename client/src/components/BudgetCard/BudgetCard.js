@@ -17,45 +17,49 @@ function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal }) {
   }, [setEntry]);
   return (
     <div>
-      <div className="title">
-        <h2>Entries:</h2>
-      </div>
-      <div className="data-container">
-        {entry.map((item) => (
-          <span key={item.id} className="list-items">
-            {item.title}: ${item.budget}
-            <button
-              className="detailed-view"
-              title="Detailed View"
-              onClick={() => {
-                setViewId(item.id);
-                setEditId(null);
-                setTransferId(null);
-              }}
-            >
-              👁
-            </button>
-            {viewId === item.id && (
-              <DetailedView
-                item={item}
-                editId={editId}
-                setViewId={setViewId}
-                setEditId={setEditId}
-                newTitle={newTitle}
-                setNewTitle={setNewTitle}
-                newBudget={newBudget}
-                setNewBudget={setNewBudget}
-                entry={entry}
-                setEntry={setEntry}
-                transferId={transferId}
-                setTransferId={setTransferId}
-                savedTotal={savedTotal}
-                setSavedTotal={setSavedTotal}
-              />
-            )}
-          </span>
-        ))}
-      </div>
+      {entry.length === 0 ? (
+        <p className="entry-prompt">No current budget entries</p>
+      ) : (
+        <div className="data-container">
+          <div className="title">
+            <h2>Entries:</h2>
+          </div>
+          {entry.map((item) => (
+            <span key={item.id} className="list-items">
+              {item.title}: ${item.budget}
+              <button
+                className="detailed-view"
+                title="Detailed View"
+                onClick={() => {
+                  setViewId(item.id);
+                  setEditId(null);
+                  setTransferId(null);
+                }}
+              >
+                👁
+              </button>
+              {viewId === item.id && (
+                <DetailedView
+                  item={item}
+                  editId={editId}
+                  setViewId={setViewId}
+                  setEditId={setEditId}
+                  newTitle={newTitle}
+                  setNewTitle={setNewTitle}
+                  newBudget={newBudget}
+                  setNewBudget={setNewBudget}
+                  entry={entry}
+                  setEntry={setEntry}
+                  transferId={transferId}
+                  setTransferId={setTransferId}
+                  savedTotal={savedTotal}
+                  setSavedTotal={setSavedTotal}
+                />
+              )}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
