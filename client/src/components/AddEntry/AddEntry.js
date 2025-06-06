@@ -40,7 +40,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
             <button
               className="action-buttons"
               onClick={() => {
-                if (title !== "" && budget !== "") {
+                if (title !== "" && budget !== "" && budget <= savedTotal) {
                   handleCreate(
                     title,
                     budget,
@@ -53,7 +53,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
                   setIsVisible(null);
                 } else {
                   alert(
-                    "Could not create entry, please ensure both fields are filled out."
+                    "Could not create entry, ensure both fields are filled out, or budget amount does not exceed total budget."
                   );
                 }
               }}
