@@ -24,7 +24,7 @@ function App() {
         <div className="budget-field">
           <input
             className="new-budget"
-            placeholder="Monthly Budget"
+            placeholder="Total Budget"
             type="number"
             min={0}
             value={totalBudget}
