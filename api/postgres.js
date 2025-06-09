@@ -78,12 +78,24 @@ const transferBetweenEntries = async (
   }
 };
 
+const setSavedTotal = async (total_budget) => {
+  try {
+    const result = await db.query(
+      "UPDATE saved_total SET total_budget = $1 RETURNING *",
+      [total_budget]
+    );
+    return result.rows[0];
+  } catch (err) {
+    console.error("Could not set budget", err);
+  }
+};
+
 const getSavedTotal = async () => {
   try {
     const result = await db.query("SELECT total_budget FROM saved_total");
     return result.rows[0].total_budget;
   } catch (err) {
-    console.error("Could not set budget", err);
+    console.error("Could not get budget", err);
   }
 };
 
@@ -93,5 +105,6 @@ module.exports = {
   editEntry,
   deleteEntry,
   transferBetweenEntries,
+  setSavedTotal,
   getSavedTotal,
 };
