@@ -78,10 +78,20 @@ const transferBetweenEntries = async (
   }
 };
 
+const getSavedTotal = async () => {
+  try {
+    const result = await db.query("SELECT total_budget FROM saved_total");
+    return result.rows[0].total_budget;
+  } catch (err) {
+    console.error("Could not set budget", err);
+  }
+};
+
 module.exports = {
   getAllEntries,
   createNewEntry,
   editEntry,
   deleteEntry,
   transferBetweenEntries,
+  getSavedTotal,
 };
