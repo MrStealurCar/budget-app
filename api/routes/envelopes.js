@@ -1,5 +1,6 @@
 const express = require("express");
 const envelopeRouter = express.Router();
+const totalBudgetRouter = express.Router();
 const { mockEnvelopes } = require("../db.js");
 const {
   getAllEntries,
@@ -79,4 +80,4 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
   }
 });
 
-module.exports = envelopeRouter;
+module.exports = { envelopeRouter, totalBudgetRouter };
