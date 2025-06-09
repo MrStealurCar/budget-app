@@ -9,6 +9,8 @@ function ActionButtons({
   item,
   setEntry,
   transferId,
+  savedTotal,
+  setSavedTotal,
   setTransferId,
 }) {
   return (
@@ -16,7 +18,13 @@ function ActionButtons({
       <button
         title="Delete entry"
         onClick={() => {
-          handleDelete(item.id, setEntry);
+          handleDelete(
+            item.id,
+            setEntry,
+            savedTotal,
+            setSavedTotal,
+            item.budget
+          );
         }}
       >
         ❌ {/* deletes entry */}
