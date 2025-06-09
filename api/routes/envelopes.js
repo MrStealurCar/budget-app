@@ -8,6 +8,8 @@ const {
   editEntry,
   deleteEntry,
   transferBetweenEntries,
+  setSavedTotal,
+  getSavedTotal,
 } = require("../postgres.js");
 
 // Route for getting all envelopes in mockEnvelopes
@@ -78,6 +80,16 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
       message: "Transfer successful",
     });
   }
+});
+
+totalBudgetRouter.post("/total_budget", async (req, res, next) => {
+  const totalBudget = await setSavedTotal(req.body.total_budget);
+  res.status(201).send(totalBudget);
+});
+
+totalBudgetRouter.get("/", async (req, res, next) => {
+  const getTotal = await getSavedTotal();
+  res.send(getTotal);
 });
 
 module.exports = { envelopeRouter, totalBudgetRouter };
