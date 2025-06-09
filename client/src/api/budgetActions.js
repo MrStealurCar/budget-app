@@ -55,13 +55,21 @@ const handleEdit = async (
   }
 };
 
-const handleDelete = async (id, setEntry) => {
+const handleDelete = async (
+  id,
+  setEntry,
+  savedTotal,
+  setSavedTotal,
+  budget
+) => {
   try {
     await fetch(`http://localhost:3005/envelopes/${id}`, {
       method: "DELETE",
     });
     const data = await fetchEnvelopes();
     setEntry(data);
+    setSavedTotal(savedTotal + Number(budget));
+    await fetchTotalBudget(savedTotal + Number(budget));
   } catch (error) {
     console.error("could not delete item:" + error);
   }
