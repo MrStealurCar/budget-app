@@ -35,6 +35,8 @@ function DetailedView({
           item={item}
           entry={entry}
           setEntry={setEntry}
+          savedTotal={savedTotal}
+          setSavedTotal={setSavedTotal}
           transferId={transferId}
           setTransferId={setTransferId}
         />
