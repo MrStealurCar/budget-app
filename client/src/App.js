@@ -45,7 +45,7 @@ function App() {
             Save
           </button>
         </div>
-        <h3>Your budget is ${Number(savedTotal)}</h3>
+        <h3>{savedTotal > 0 ? `Your budget is $${Number(savedTotal)}` : ""}</h3>
       </header>
       <main className="body">
         <div className="budget-container">
