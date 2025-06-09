@@ -33,9 +33,13 @@ function App() {
           <button
             className="save-button"
             onClick={() => {
-              fetchTotalBudget(totalBudget);
-              setSavedTotal(totalBudget);
-              setTotalBudget(0);
+              if (totalBudget >= 0) {
+                fetchTotalBudget(totalBudget);
+                setSavedTotal(totalBudget);
+                setTotalBudget(0);
+              } else {
+                alert("Amount cannot be a negative number");
+              }
             }}
           >
             Save
