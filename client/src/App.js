@@ -1,11 +1,22 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
+import { fetchBudget, fetchTotalBudget } from "./api/api";
+
 function App() {
   const [entry, setEntry] = useState([]);
   const [totalBudget, setTotalBudget] = useState("");
   const [savedTotal, setSavedTotal] = useState("");
+
+  useEffect(() => {
+    const getBudget = async () => {
+      const data = await fetchBudget();
+      setSavedTotal(data);
+    };
+    getBudget();
+  }, [setSavedTotal]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -22,6 +33,7 @@ function App() {
           <button
             className="save-button"
             onClick={() => {
+              fetchTotalBudget(totalBudget);
               setSavedTotal(totalBudget);
               setTotalBudget(0);
             }}
