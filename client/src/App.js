@@ -22,6 +22,7 @@ function App() {
       <header className="App-header">
         <h1>Budget Planner</h1>
         <div className="budget-field">
+          <h4>{savedTotal > 0 ? "" : "Enter a budget amount"}</h4>
           <input
             className="new-budget"
             placeholder="Total Budget"
