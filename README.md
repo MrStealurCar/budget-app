@@ -1,6 +1,20 @@
 # Budget Planner
 
-Budget Planner is a simple fullstack app that allows users to view, add, edit, or delete budget entries.
+Budget Planner is a simple fullstack app that allows users to set a total budget, and create, view, edit, or delete budget entries.
+
+## Technologies used
+
+### Front-End:
+
+- HTML/CSS
+- JavaScript
+- React
+
+### Back-End:
+
+- Express.js
+- Node.js
+- PostgreSQL
 
 ## Description
 
@@ -19,7 +33,7 @@ The original version of the app allowed users to:
 
 After refactoring to use PostgreSQL, the app now:
 
-- Adds budget entries to a real PostgreSQL database.
+- Adds budget entries and total to a real PostgreSQL database.
 - Lets users set their own budget and create entries which will deduct from their saved total.
 - Features updated API routes to interact with SQL functions.
 - Retains the detailed view feature with the same options as before.
@@ -33,7 +47,7 @@ This was an impromptu portfolio project I decided to create after completing the
 
 ## Getting started
 
-**Note:** This project uses a Node-based mock server to simulate backend API functionality. For now, the app is intended to run **locally**.
+**Note:** This project is currently intended to run **locally**. It uses Node.js and Express to run the server, and is connected to a PostgreSQL database.
 
 1. ### Clone the repository
 
