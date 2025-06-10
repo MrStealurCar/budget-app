@@ -58,7 +58,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
                   setIsVisible(null);
                 } else {
                   alert(
-                    "Could not create entry. Ensure both fields are filled out, amount is not a negative number, or amount does not exceed total budget."
+                    "Ensure both fields are filled out, amount is not a negative number, or amount does not exceed total budget."
                   );
                 }
               }}
