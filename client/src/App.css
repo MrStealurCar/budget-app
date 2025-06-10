@@ -23,6 +23,12 @@ button:active {
 
 .new-budget {
   margin-right: 10px;
+  font-size: 15px;
+  padding: 2px;
+}
+
+.save-button {
+  font-size: 15px;
 }
 
 .body {
