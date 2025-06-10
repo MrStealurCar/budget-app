@@ -16,6 +16,8 @@ function DetailedView({
   setEntry,
   transferId,
   setTransferId,
+  savedTotal,
+  setSavedTotal,
 }) {
   return (
     <div>
@@ -33,6 +35,8 @@ function DetailedView({
           item={item}
           entry={entry}
           setEntry={setEntry}
+          savedTotal={savedTotal}
+          setSavedTotal={setSavedTotal}
           transferId={transferId}
           setTransferId={setTransferId}
         />
@@ -56,6 +60,8 @@ function DetailedView({
           setNewTitle={setNewTitle}
           setNewBudget={setNewBudget}
           setEditId={setEditId}
+          savedTotal={savedTotal}
+          setSavedTotal={setSavedTotal}
         />
       )}
       <div>

@@ -1,5 +1,11 @@
-.title {
+.entry-prompt {
   text-align: center;
+  font-size: 18px;
+}
+
+.title {
+  margin-top: -10px;
+  margin-left: -15px;
 }
 
 .data-container {
@@ -11,7 +17,7 @@
 }
 
 .list-items {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .detailed-view {

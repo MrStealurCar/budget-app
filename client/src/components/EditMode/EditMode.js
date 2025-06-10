@@ -9,6 +9,8 @@ function EditMode({
   setNewTitle,
   setNewBudget,
   setEditId,
+  savedTotal,
+  setSavedTotal,
 }) {
   return (
     <div className="edit-container">
@@ -26,7 +28,15 @@ function EditMode({
       <button
         className="save-button"
         onClick={() => {
-          handleEdit(item.id, newTitle, newBudget, setEntry);
+          handleEdit(
+            item.id,
+            item.budget,
+            newTitle,
+            newBudget,
+            setEntry,
+            savedTotal,
+            setSavedTotal
+          );
           setEditId(null);
           setNewTitle("");
           setNewBudget(0);

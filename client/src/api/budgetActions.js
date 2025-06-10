@@ -1,6 +1,14 @@
 import fetchEnvelopes from "./api";
-
-const handleCreate = async (title, budget, setEntry, setTitle, setBudget) => {
+import { fetchTotalBudget } from "./api";
+const handleCreate = async (
+  title,
+  budget,
+  setEntry,
+  setTitle,
+  setBudget,
+  savedTotal,
+  setSavedTotal
+) => {
   try {
     await fetch(`http://localhost:3005/envelopes`, {
       method: "POST",
@@ -10,7 +18,10 @@ const handleCreate = async (title, budget, setEntry, setTitle, setBudget) => {
       body: JSON.stringify({ title: title, budget: budget }),
     });
     const data = await fetchEnvelopes();
+    const newTotal = savedTotal - budget;
     setEntry(data);
+    setSavedTotal(newTotal);
+    await fetchTotalBudget(newTotal);
     setTitle("");
     setBudget("");
   } catch (error) {
@@ -18,7 +29,16 @@ const handleCreate = async (title, budget, setEntry, setTitle, setBudget) => {
   }
 };
 
-const handleEdit = async (id, title, budget, setEntry) => {
+const handleEdit = async (
+  id,
+  originalBudget,
+  title,
+  budget,
+  setEntry,
+  savedTotal,
+  setSavedTotal
+) => {
+  let difference = budget - originalBudget;
   try {
     await fetch(`http://localhost:3005/envelopes/${id}`, {
       method: "PUT",
@@ -29,18 +49,27 @@ const handleEdit = async (id, title, budget, setEntry) => {
     });
     const data = await fetchEnvelopes();
     setEntry(data);
+    setSavedTotal(savedTotal - difference);
   } catch (error) {
     console.error("could not update item:" + error);
   }
 };
 
-const handleDelete = async (id, setEntry) => {
+const handleDelete = async (
+  id,
+  setEntry,
+  savedTotal,
+  setSavedTotal,
+  budget
+) => {
   try {
     await fetch(`http://localhost:3005/envelopes/${id}`, {
       method: "DELETE",
     });
     const data = await fetchEnvelopes();
     setEntry(data);
+    setSavedTotal(savedTotal + Number(budget));
+    await fetchTotalBudget(savedTotal + Number(budget));
   } catch (error) {
     console.error("could not delete item:" + error);
   }

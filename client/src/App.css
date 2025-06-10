@@ -14,8 +14,21 @@ button:active {
 }
 
 .App-header {
-  display: flex;
-  justify-content: center;
+  text-align: center;
+}
+
+.budget-field {
+  margin-bottom: 10px;
+}
+
+.new-budget {
+  margin-right: 10px;
+  font-size: 15px;
+  padding: 2px;
+}
+
+.save-button {
+  font-size: 15px;
 }
 
 .body {

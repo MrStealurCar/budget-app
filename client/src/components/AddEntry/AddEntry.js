@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
-function AddEntry({ setEntry }) {
+function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -40,12 +40,25 @@ function AddEntry({ setEntry }) {
             <button
               className="action-buttons"
               onClick={() => {
-                if (title !== "" && budget !== "") {
-                  handleCreate(title, budget, setEntry, setTitle, setBudget);
+                if (
+                  title !== "" &&
+                  budget !== "" &&
+                  budget <= savedTotal &&
+                  budget >= 1
+                ) {
+                  handleCreate(
+                    title,
+                    budget,
+                    setEntry,
+                    setTitle,
+                    setBudget,
+                    savedTotal,
+                    setSavedTotal
+                  );
                   setIsVisible(null);
                 } else {
                   alert(
-                    "Could not create entry, please ensure both fields are filled out."
+                    "Could not create entry. Ensure both fields are filled out, amount is not a negative number, or amount does not exceed total budget."
                   );
                 }
               }}
