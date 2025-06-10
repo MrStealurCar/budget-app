@@ -4,7 +4,9 @@ Budget Planner is a simple fullstack app that allows users to view, add, edit, o
 
 ## Description
 
-This project uses the budget-api I built as part of Codecademys Back-End Engineer career path, I decided to add a simple user interface to it using React after completing the API to make it my first fullstack application! The back-end was built using Express.js and I used Node.js to run the server. I found hooking up the API I built both fun and challenging, facing many difficulties along the way such as the transfer feature. This app allows users to:
+This project uses the budget-api I built as part of Codecademys Back-End Engineer career path, I decided to add a simple user interface to it using React after completing the API to make it my first fullstack application! The API was built using Express.js, and I used Node.js to run the server. Originally, the app would display a default list of budget entries, and the API would add and pull data from a mock database I had created in the api folder. However, shortly after completing the project, I decided to replace this with a real PostgreSQL database instead. I found creating the new database, and hooking up my API to PostgreSQL both fun and challenging. Refactoring my original routes to interact with the real database was also very engaging.
+
+The original version of the app allowed users to:
 
 - View a default list of budget entries.
 - Add a new budget entry to the list.
@@ -15,13 +17,15 @@ This project uses the budget-api I built as part of Codecademys Back-End Enginee
 2. Edit the current entries title or amount (✏️)
 3. Transfer funds between 2 entries (🔁)
 
-I am currently refactoring this app to become more practical and real-world. Some new features will include:
+After refactoring to use PostgreSQL, the app now:
 
-- Letting the user set their own budget
-- Replacing the default list of entries with a prompt telling the user to add new ones
-- Automatically deducting from the user's set budget as they create new entries
-
-Check back soon to see the finished product!
+- Adds budget entries to a real PostgreSQL database.
+- Lets users set their own budget and create entries which will deduct from their saved total.
+- Features updated API routes to interact with SQL functions.
+- Retains the detailed view feature with the same options as before.
+- Prevents users from setting a negative total amount or creating an entry with a negative budget.
+- Keeps and saves entries and total amount on refresh.
+- Adds any leftover money back to total amount if entry is deleted.
 
 ## Why I built this
 
