@@ -1,7 +1,6 @@
 const express = require("express");
 const envelopeRouter = express.Router();
 const totalBudgetRouter = express.Router();
-const { mockEnvelopes } = require("../db.js");
 const {
   getAllEntries,
   createNewEntry,
@@ -12,31 +11,16 @@ const {
   getSavedTotal,
 } = require("../postgres.js");
 
-// Route for getting all envelopes in mockEnvelopes
+// Route for getting all envelopes in database
 envelopeRouter.get("/", async (req, res, next) => {
   const response = await getAllEntries();
   res.send(response);
 });
 
-//Route for adding envelopes to mockEnvelopes
+//Route for adding envelopes to database
 envelopeRouter.post("/", async (req, res, next) => {
   const newBudget = await createNewEntry(req.body.title, req.body.budget);
   res.status(201).send(newBudget);
-});
-
-// Route for getting envelope based on ID
-envelopeRouter.get("/:id", (req, res, next) => {
-  const envelopeId = req.params.id;
-  const turnIdToNum = Number(envelopeId);
-  const foundEnvelope = mockEnvelopes.find(
-    (currentVal) => currentVal.id === turnIdToNum
-  );
-
-  if (foundEnvelope) {
-    res.send(foundEnvelope);
-  } else {
-    res.status(404).send("Envelope not found");
-  }
 });
 
 // Route for updating envelope based on ID
@@ -82,11 +66,13 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
   }
 });
 
+// Route for setting total budget
 totalBudgetRouter.post("/total_budget", async (req, res, next) => {
   const totalBudget = await setSavedTotal(req.body.total_budget);
   res.status(201).send(totalBudget);
 });
 
+//Route for getting total budget in database
 totalBudgetRouter.get("/", async (req, res, next) => {
   const getTotal = await getSavedTotal();
   res.send(getTotal);
