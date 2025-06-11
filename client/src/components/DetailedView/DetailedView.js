@@ -21,11 +21,6 @@ function DetailedView({
 }) {
   return (
     <div>
-      <div className="info-container">
-        <span className="entry-info">ID: {item.id},</span>
-        <span className="entry-info">Title: {item.title},</span>
-        <span className="entry-info">Budget: ${item.budget}</span>
-      </div>
       <div className="action-buttons">
         <ActionButtons
           editId={editId}
@@ -48,7 +43,7 @@ function DetailedView({
             setTransferId(null);
           }}
         >
-          Close
+          ❌
         </button>
       </div>
       {editId === item.id && (
