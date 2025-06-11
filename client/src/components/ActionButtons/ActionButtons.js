@@ -16,6 +16,8 @@ function ActionButtons({
   return (
     <div className="handler-buttons">
       <button
+        className="action-button"
+        style={{ color: "red" }}
         title="Delete entry"
         onClick={() => {
           handleDelete(
@@ -27,9 +29,11 @@ function ActionButtons({
           );
         }}
       >
-        ❌ {/* deletes entry */}
+        Delete {/* deletes entry */}
       </button>
       <button
+        className="action-button"
+        style={{ color: "blue" }}
         title="Edit entry"
         onClick={() => {
           setEditId(editId === item.id ? null : item.id);
@@ -38,17 +42,19 @@ function ActionButtons({
           setTransferId(null);
         }}
       >
-        ✏️ {/* edit entry */}
+        Edit {/* edit entry */}
       </button>
 
       <button
+        className="action-button"
+        style={{ color: "green" }}
         title="Transfer funds"
         onClick={() => {
           setTransferId(transferId === item.id ? null : item.id);
           setEditId(null);
         }}
       >
-        🔁 {/* transfers funds between entries */}
+        Transfer {/* transfers funds between entries */}
       </button>
     </div>
   );
