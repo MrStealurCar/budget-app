@@ -37,7 +37,7 @@ function App() {
               if (totalBudget >= 0) {
                 fetchTotalBudget(totalBudget);
                 setSavedTotal(totalBudget);
-                setTotalBudget(0);
+                setTotalBudget("");
               } else {
                 alert("Amount cannot be a negative number");
               }
