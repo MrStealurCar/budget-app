@@ -2,3 +2,7 @@
   display: flex;
   gap: 5px;
 }
+
+.action-button {
+  font-size: 15px;
+}
