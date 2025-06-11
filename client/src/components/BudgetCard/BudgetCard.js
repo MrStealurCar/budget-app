@@ -36,7 +36,7 @@ function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal }) {
                   setTransferId(null);
                 }}
               >
-                👁
+                🔍
               </button>
               {viewId === item.id && (
                 <DetailedView
