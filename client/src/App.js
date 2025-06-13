@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Aura Finance</h1>
+        <h1 className="main-title">Aura Finance</h1>
         <div className="budget-field">
           <h4>{savedTotal > 0 ? "" : "Enter your total budget"}</h4>
           <input
