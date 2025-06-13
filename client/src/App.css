@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 button:hover {
   cursor: pointer;
 }
@@ -15,6 +17,12 @@ button:active {
 
 .App-header {
   text-align: center;
+}
+
+.main-title {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 600;
 }
 
 .budget-field {
