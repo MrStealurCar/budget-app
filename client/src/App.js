@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
 import { fetchBudget, fetchTotalBudget } from "./api/api";
@@ -20,9 +20,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Budget Planner</h1>
+        <h1>Aura Finance</h1>
         <div className="budget-field">
-          <h4>{savedTotal > 0 ? "" : "Enter a budget amount"}</h4>
+          <h4>{savedTotal > 0 ? "" : "Enter your total budget"}</h4>
           <input
             className="new-budget"
             placeholder="Total Budget"
