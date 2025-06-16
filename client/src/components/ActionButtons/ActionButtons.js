@@ -29,7 +29,7 @@ function ActionButtons({
           );
         }}
       >
-        Delete {/* deletes entry */}
+        Delete
       </button>
       <button
         className="action-button"
@@ -42,7 +42,7 @@ function ActionButtons({
           setTransferId(null);
         }}
       >
-        Edit {/* edit entry */}
+        Edit
       </button>
 
       <button
@@ -54,7 +54,7 @@ function ActionButtons({
           setEditId(null);
         }}
       >
-        Transfer {/* transfers funds between entries */}
+        Transfer
       </button>
     </div>
   );
