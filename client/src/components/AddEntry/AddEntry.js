@@ -38,7 +38,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
           </div>
           <div className="button-container">
             <button
-              className="action-buttons"
+              className="entry-action-buttons"
               onClick={() => {
                 if (
                   title !== "" &&
@@ -66,7 +66,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
               Save
             </button>
             <button
-              className="action-buttons"
+              className="entry-action-buttons"
               onClick={() => {
                 setIsVisible((prevState) => !prevState);
                 setTitle("");
