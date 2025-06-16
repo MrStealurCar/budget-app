@@ -1,6 +1,6 @@
-# Budget Planner
+# Aura Finance
 
-Budget Planner is a simple fullstack app that allows users to set a total budget, and create, view, edit, or delete budget entries.
+Aura Finance is a simple fullstack budget planner that allows users to set a total budget, and create, view, edit, or delete budget entries.
 
 ## Technologies used
 
