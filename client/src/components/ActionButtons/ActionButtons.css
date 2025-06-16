@@ -6,3 +6,10 @@
 .action-button {
   font-size: 15px;
 }
+
+@media screen and (max-width: 450px) {
+  .handler-buttons {
+    flex-direction: column;
+    width: 75%;
+  }
+}
