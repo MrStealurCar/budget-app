@@ -33,13 +33,13 @@ function App() {
           />
           <button
             className="save-button"
-            onClick={() => {
-              if (totalBudget >= 0) {
-                fetchTotalBudget(totalBudget);
+            onClick={async () => {
+              const response = await fetchTotalBudget(totalBudget);
+              if (response) {
                 setSavedTotal(totalBudget);
                 setTotalBudget("");
               } else {
-                alert("Amount cannot be a negative number");
+                alert("Amount cannot be a negative number.");
               }
             }}
           >
