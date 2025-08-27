@@ -35,7 +35,7 @@ function App() {
             className="save-button"
             onClick={async () => {
               const response = await fetchTotalBudget(totalBudget);
-              if (response) {
+              if (response !== undefined && response !== null) {
                 setSavedTotal(totalBudget);
                 setTotalBudget("");
               } else {
