@@ -68,10 +68,14 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
 
 // Route for setting total budget
 totalBudgetRouter.post("/total_budget", async (req, res, next) => {
-  const totalBudget = await setSavedTotal(req.body.total_budget);
-  res.status(201).send(totalBudget);
+  const { total_budget } = req.body;
+  if (total_budget < 0) {
+    res.status(400).send("Amount cannot be a negative number");
+  } else {
+    await setSavedTotal(total_budget);
+    res.status(201).send(total_budget);
+  }
 });
-
 //Route for getting total budget in database
 totalBudgetRouter.get("/", async (req, res, next) => {
   const getTotal = await getSavedTotal();
