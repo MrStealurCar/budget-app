@@ -35,6 +35,7 @@ function App() {
             className="save-button"
             onClick={async () => {
               const response = await fetchTotalBudget(totalBudget);
+              // Allows 0 to be set as a total budget
               if (response !== undefined && response !== null) {
                 setSavedTotal(totalBudget);
                 setTotalBudget("");
