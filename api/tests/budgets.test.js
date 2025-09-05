@@ -34,3 +34,17 @@ describe("Budget Route", () => {
     assert.equal(response.status, 201);
   });
 });
+// Creating entry tests
+describe("Creating Entries", () => {
+  it("contains a title and budget", async () => {
+    // Setup
+    const testString = "Hello, World";
+    let testBudget = 100;
+    // Exercise
+    const response = await request(app)
+      .post("/envelopes/")
+      .send({ title: testString, budget: testBudget });
+    // Verify
+    assert.equal(response.status, 201);
+  });
+});
