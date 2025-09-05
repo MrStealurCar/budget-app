@@ -13,6 +13,7 @@ describe("Budget Route", () => {
     // Verify
     assert.equal(response.status, 201);
   });
+
   it("rejects a negative number as a total budget", async () => {
     // Setup
     const testBudget = -100;
@@ -23,6 +24,7 @@ describe("Budget Route", () => {
     // Verify
     assert.equal(response.status, 400);
   });
+
   it("accepts 0 as a budget", async () => {
     // Setup
     const testBudget = 0;
@@ -34,6 +36,7 @@ describe("Budget Route", () => {
     assert.equal(response.status, 201);
   });
 });
+
 // Creating entry tests
 describe("Creating Entries", () => {
   it("contains a title and budget", async () => {
