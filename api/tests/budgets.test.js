@@ -12,4 +12,14 @@ describe("Budget Route", () => {
     // Verify
     assert.equal(response.status, 201);
   });
+  it("Rejects a negative number as a total budget", async () => {
+    //Setup
+    const testBudget = -100;
+    // Exercise
+    const response = await request(app)
+      .post("/total-budget/total_budget")
+      .send({ total_budget: testBudget });
+    // Verify
+    assert.equal(response.status, 400);
+  });
 });
