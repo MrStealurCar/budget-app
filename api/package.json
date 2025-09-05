@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "db.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha tests/**/*.test.js",
     "start": "node server.js"
   },
   "keywords": [],
