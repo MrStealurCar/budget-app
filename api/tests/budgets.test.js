@@ -3,9 +3,9 @@ const request = require("supertest");
 const app = require("../server");
 // Initial Budget tests
 describe("Budget Route", () => {
-  it("expects a positive number as a total budget", async () => {
+  it("accepts a positive number as a total budget", async () => {
     // Setup
-    const testBudget = 100;
+    const testBudget = 0.01;
     // Exercise
     const response = await request(app) // tells Supertest which Express app to hit.
       .post("/total-budget/total_budget")
@@ -16,7 +16,7 @@ describe("Budget Route", () => {
 
   it("rejects a negative number as a total budget", async () => {
     // Setup
-    const testBudget = -100;
+    const testBudget = -0.01;
     // Exercise
     const response = await request(app)
       .post("/total-budget/total_budget")
@@ -42,7 +42,7 @@ describe("Creating Entries", () => {
   it("contains a title and budget", async () => {
     // Setup
     const testString = "Hello, World";
-    let testBudget = 100;
+    const testBudget = 100;
     // Exercise
     const response = await request(app)
       .post("/envelopes/")
