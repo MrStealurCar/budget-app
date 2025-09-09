@@ -17,7 +17,7 @@ function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal }) {
   }, [setEntry]);
   return (
     <div>
-      {entry.length === 0 ? (
+      {!entry || entry.length === 0 ? (
         <p className="entry-prompt">No current budget entries</p>
       ) : (
         <div className="data-container">
