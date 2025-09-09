@@ -1,7 +1,5 @@
 import fetchEnvelopes from "./api";
 import { fetchTotalBudget } from "./api";
-
-const API_URL = process.env.REACT_APP_API_URL;
 const handleCreate = async (
   title,
   budget,
@@ -12,7 +10,7 @@ const handleCreate = async (
   setSavedTotal
 ) => {
   try {
-    await fetch(`${API_URL}/envelopes`, {
+    await fetch(`/envelopes`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -42,7 +40,7 @@ const handleEdit = async (
 ) => {
   let difference = budget - originalBudget;
   try {
-    await fetch(`${API_URL}/envelopes/${id}`, {
+    await fetch(`/envelopes/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -65,7 +63,7 @@ const handleDelete = async (
   budget
 ) => {
   try {
-    await fetch(`${API_URL}/envelopes/${id}`, {
+    await fetch(`/envelopes/${id}`, {
       method: "DELETE",
     });
     const data = await fetchEnvelopes();
@@ -80,7 +78,7 @@ const handleDelete = async (
 const handleTransfer = async (sourceId, destinationId, budget, setEntry) => {
   try {
     if (typeof budget === "number") {
-      await fetch(`${API_URL}/envelopes/${sourceId}/${destinationId}`, {
+      await fetch(`/envelopes/${sourceId}/${destinationId}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
