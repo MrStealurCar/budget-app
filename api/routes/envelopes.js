@@ -1,6 +1,7 @@
 const express = require("express");
 const envelopeRouter = express.Router();
 const totalBudgetRouter = express.Router();
+const { MIN_BUDGET_AMT } = require("../constants");
 const {
   getAllEntries,
   createNewEntry,
@@ -20,10 +21,18 @@ envelopeRouter.get("/", async (req, res, next) => {
 //Route for adding envelopes to database
 envelopeRouter.post("/", async (req, res, next) => {
   const { title, budget } = req.body;
-  if (!title || !budget || budget < 1) {
+  if (!title && !budget) {
     return res
       .status(400)
-      .send({ error: "Title and budget greater than 0 are required" });
+      .send({ error: "New entry must contain a name and a budget." });
+  } else if (!title) {
+    return res.status(400).send({
+      error: `New budget must contain a name.`,
+    });
+  } else if (!budget || budget < MIN_BUDGET_AMT) {
+    return res.status(400).send({
+      error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
+    });
   }
   const newBudget = await createNewEntry(title, budget);
   res.status(201).send(newBudget);
