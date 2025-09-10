@@ -3,6 +3,12 @@
   justify-content: center;
 }
 
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
 .add-button {
   margin-top: 10px;
   background-color: lawngreen;
