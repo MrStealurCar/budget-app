@@ -5,6 +5,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState(null);
   return (
     <div>
       <div className="create-entry">
@@ -15,6 +16,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
           Add Entry
         </button>
       </div>
+      {error && <p className="error-message">{error}</p>}
       {isVisible && (
         <div>
           <div className="input-container">
@@ -23,7 +25,10 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
               className="entry-input"
               placeholder="Budget name"
               type="text"
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setError(null);
+              }}
               required
             />
             <input
@@ -32,7 +37,10 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
               type="number"
               min={0}
               placeholder="Amount"
-              onChange={(e) => setBudget(Number(e.target.value))}
+              onChange={(e) => {
+                setBudget(Number(e.target.value));
+                setError(null);
+              }}
               required
             />
           </div>
@@ -40,27 +48,18 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
             <button
               className="entry-action-buttons"
               onClick={() => {
-                if (
-                  title !== "" &&
-                  budget !== "" &&
-                  budget <= savedTotal &&
-                  budget >= 1
-                ) {
-                  handleCreate(
-                    title,
-                    budget,
-                    setEntry,
-                    setTitle,
-                    setBudget,
-                    savedTotal,
-                    setSavedTotal
-                  );
-                  setIsVisible(null);
-                } else {
-                  alert(
-                    "Ensure both fields are filled out, amount is not a negative number, or amount does not exceed total budget."
-                  );
-                }
+                handleCreate(
+                  title,
+                  budget,
+                  setEntry,
+                  setTitle,
+                  setBudget,
+                  savedTotal,
+                  setSavedTotal,
+                  error,
+                  setError
+                );
+                setIsVisible(null);
               }}
             >
               Save
