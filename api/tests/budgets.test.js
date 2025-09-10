@@ -1,11 +1,13 @@
 const assert = require("assert");
 const request = require("supertest");
 const app = require("../server");
+const { MIN_BUDGET_AMT } = require("../constants");
+
 // Initial Budget tests
 describe("Budget Route", () => {
   it("accepts a positive number as a total budget", async () => {
     // Setup
-    const testBudget = 0.01;
+    const testBudget = MIN_BUDGET_AMT;
     // Exercise
     const response = await request(app) // tells Supertest which Express app to hit.
       .post("/total-budget/total_budget")
@@ -16,7 +18,7 @@ describe("Budget Route", () => {
 
   it("rejects a negative number as a total budget", async () => {
     // Setup
-    const testBudget = -0.01;
+    const testBudget = MIN_BUDGET_AMT * -1;
     // Exercise
     const response = await request(app)
       .post("/total-budget/total_budget")
