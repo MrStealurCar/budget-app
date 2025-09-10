@@ -7,23 +7,31 @@ const handleCreate = async (
   setTitle,
   setBudget,
   savedTotal,
-  setSavedTotal
+  setSavedTotal,
+  error,
+  setError
 ) => {
   try {
-    await fetch(`/envelopes`, {
+    const response = await fetch(`/envelopes`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({ title: title, budget: budget }),
     });
-    const data = await fetchEnvelopes();
-    const newTotal = savedTotal - budget;
-    setEntry(data);
-    setSavedTotal(newTotal);
-    await fetchTotalBudget(newTotal);
-    setTitle("");
-    setBudget("");
+    if (response.ok) {
+      const data = await fetchEnvelopes();
+      const newTotal = savedTotal - budget;
+      setEntry(data);
+      setSavedTotal(newTotal);
+      await fetchTotalBudget(newTotal);
+      setTitle("");
+      setBudget("");
+    } else {
+      const data = await response.json();
+      setError(data.error);
+      throw new Error(data.error);
+    }
   } catch (error) {
     console.error("could not create entry" + error);
   }
