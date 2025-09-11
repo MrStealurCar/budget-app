@@ -21,11 +21,13 @@
   flex-direction: column;
   margin-top: 10px;
   gap: 5px;
+  align-items: center;
 }
 
 .entry-input {
   font-size: 18px;
   padding: 2px;
+  max-width: 100%;
 }
 
 .button-container {
