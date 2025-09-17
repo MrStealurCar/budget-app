@@ -24,12 +24,12 @@ The original version of the app allowed users to:
 
 - View a default list of budget entries.
 - Add a new budget entry to the list.
-- View more details of a specific budget by clicking the eye emoji.
+- View more details of a specific budget by clicking the magnifying glass emoji.
 - While in the detailed view, the user has the option to:
 
-1. Delete the current entry (❌)
-2. Edit the current entries title or amount (✏️)
-3. Transfer funds between 2 entries (🔁)
+1. Delete the current entry
+2. Edit the current entries title or amount
+3. Transfer funds between 2 entries
 
 After refactoring to use PostgreSQL, the app now:
 
