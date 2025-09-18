@@ -1,25 +1,24 @@
-const { Client } = require("pg");
+const { Pool } = require("pg");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const db = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
 });
 
-db.connect()
-  .then(() => {
-    console.log("Connected to Neon database");
-  })
-  .catch((err) => {
-    console.error("Connection error", err.stack);
-  });
+// prevent crashing if idle client error(s) occur
+pool.on("error", (err) => {
+  console.error("Unexpected error on idle client", err);
+});
 
 const getAllEntries = async () => {
   try {
-    const result = await db.query("SELECT * FROM budget_entries ORDER BY id;");
+    const result = await pool.query(
+      "SELECT * FROM budget_entries ORDER BY id;"
+    );
     return result.rows;
   } catch (err) {
     console.error("DB query error:", err);
@@ -28,7 +27,7 @@ const getAllEntries = async () => {
 
 const createNewEntry = async (title, budget) => {
   try {
-    const result = await db.query(
+    const result = await pool.query(
       "INSERT INTO budget_entries(title, budget) VALUES($1, $2) RETURNING *",
       [title, budget]
     );
@@ -40,7 +39,7 @@ const createNewEntry = async (title, budget) => {
 
 const editEntry = async (id, title, budget) => {
   try {
-    const result = await db.query(
+    const result = await pool.query(
       "UPDATE budget_entries SET title = $2, budget = $3 WHERE id = $1 RETURNING *",
       [id, title, budget]
     );
@@ -52,7 +51,7 @@ const editEntry = async (id, title, budget) => {
 
 const deleteEntry = async (id) => {
   try {
-    const result = await db.query(
+    const result = await pool.query(
       "DELETE FROM budget_entries WHERE id=$1 RETURNING *",
       [id]
     );
@@ -68,25 +67,25 @@ const transferBetweenEntries = async (
   budgetToTransfer
 ) => {
   try {
-    await db.query("BEGIN");
-    await db.query(
+    await pool.query("BEGIN");
+    await pool.query(
       "UPDATE budget_entries SET budget = budget - $2 WHERE id = $1",
       [sourceId, budgetToTransfer]
     );
-    await db.query(
+    await pool.query(
       "UPDATE budget_entries SET budget = budget + $2 WHERE id = $1",
       [destinationId, budgetToTransfer]
     );
-    await db.query("COMMIT");
+    await pool.query("COMMIT");
   } catch (err) {
-    await db.query("ROLLBACK");
+    await pool.query("ROLLBACK");
     console.error("Error transferring budgets", err);
   }
 };
 
 const setSavedTotal = async (total_budget) => {
   try {
-    const result = await db.query(
+    const result = await pool.query(
       "UPDATE saved_total SET total_budget = $1 RETURNING *",
       [total_budget]
     );
@@ -98,7 +97,7 @@ const setSavedTotal = async (total_budget) => {
 
 const getSavedTotal = async () => {
   try {
-    const result = await db.query("SELECT total_budget FROM saved_total");
+    const result = await pool.query("SELECT total_budget FROM saved_total");
     return result.rows[0].total_budget;
   } catch (err) {
     console.error("Could not get budget", err);
