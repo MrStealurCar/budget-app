@@ -12,11 +12,9 @@ app.use(cors());
 app.use("/envelopes", envelopeRouter);
 app.use("/total-budget", totalBudgetRouter);
 
-app.use(express.static(path.join(__dirname, "../client/build"))); // Serve static files from the React app
-
-// All other GET requests not handled before will return the React app
+app.use(express.static("/app/client/build"));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  res.sendFile("/app/client/build/index.html");
 });
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
