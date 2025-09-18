@@ -8,12 +8,12 @@ WORKDIR /app
 COPY api/package*.json ./api/
 COPY client/package*.json ./client/
 
+# Copy all code
+COPY . .
+
 # Install dependencies
 RUN cd api && npm install
 RUN cd client && npm install
-
-# Copy all code
-COPY . .
 
 # Build the frontend
 RUN cd client && npm run build
