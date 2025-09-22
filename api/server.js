@@ -12,8 +12,9 @@ app.use(cors());
 app.use("/envelopes", envelopeRouter);
 app.use("/total-budget", totalBudgetRouter);
 
+// Serve static files from React frontend in production
 app.use(express.static(path.join(__dirname, "../client/build")));
-
+// Catch-all route: send index.html for any request not handled above
 app.get("/{*splat}", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
