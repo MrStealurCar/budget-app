@@ -45,26 +45,14 @@ After refactoring to use PostgreSQL, the app now:
 
 This was an impromptu portfolio project I decided to create after completing the budget-api project. At first, the API could only be tested in Postman, and the lack of user interface made it feel incomplete to me. So, I decided to put my skills with React to use and build a complete fullstack application using the API.
 
-## Getting started
+## Live Demo
 
-**Note:** This project is currently intended to run **locally**. It uses Node.js and Express to run the server, and is connected to a PostgreSQL database.
+I used Render to host the front end and back end, and used Neon to host the database: [Live Demo](https://budget-app-6st9.onrender.com/)
 
-1. ### Clone the repository
+**Note:**
 
-- `git clone https://github.com/your-username/your-repo-name.git`
-- `cd your-repo-name`
-
-2. ### Starting the mock server
-
-- In the terminal, run `cd api`
-- `npm install`
-- `node server.js` (You should see the terminal respond with: "Server listening on port 3005")
-
-3. ### Starting the Front-End
-
-- In a **separate terminal**, cd into the project directory again and run `cd client`
-- `npm install`
-- `npm start` (You should now be running on localhost:3000)
+- The app may be slow at first, this is because I used the free tier on Render to host the app, which will cause the app to "go to sleep" after a period of inactivity.
+- The app currently pools all budgets together so users may see entries created by other users. I plan on adding user authentication so the app is personalized for each user.
 
 ## Contributors
 
