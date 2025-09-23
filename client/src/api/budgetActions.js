@@ -12,7 +12,7 @@ const handleCreate = async (
   setError
 ) => {
   try {
-    const response = await fetch(`/envelopes`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/envelopes`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,7 +48,7 @@ const handleEdit = async (
 ) => {
   let difference = budget - originalBudget;
   try {
-    await fetch(`/envelopes/${id}`, {
+    await fetch(`${process.env.REACT_APP_API_URL}/envelopes/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -71,7 +71,7 @@ const handleDelete = async (
   budget
 ) => {
   try {
-    await fetch(`/envelopes/${id}`, {
+    await fetch(`${process.env.REACT_APP_API_URL}/envelopes/${id}`, {
       method: "DELETE",
     });
     const data = await fetchEnvelopes();
@@ -86,13 +86,16 @@ const handleDelete = async (
 const handleTransfer = async (sourceId, destinationId, budget, setEntry) => {
   try {
     if (typeof budget === "number") {
-      await fetch(`/envelopes/${sourceId}/${destinationId}`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ amount: budget }),
-      });
+      await fetch(
+        `${process.env.REACT_APP_API_URL}/envelopes/${sourceId}/${destinationId}`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ amount: budget }),
+        }
+      );
       const data = await fetchEnvelopes();
       setEntry(data);
     } else {
