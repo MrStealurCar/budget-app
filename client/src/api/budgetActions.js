@@ -12,7 +12,7 @@ const handleCreate = async (
   setError
 ) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/envelopes`, {
+    const response = await fetch(`/envelopes`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,7 +48,7 @@ const handleEdit = async (
 ) => {
   let difference = budget - originalBudget;
   try {
-    await fetch(`${process.env.REACT_APP_API_URL}/envelopes/${id}`, {
+    await fetch(`/envelopes/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -71,7 +71,7 @@ const handleDelete = async (
   budget
 ) => {
   try {
-    await fetch(`${process.env.REACT_APP_API_URL}/envelopes/${id}`, {
+    await fetch(`/envelopes/${id}`, {
       method: "DELETE",
     });
     const data = await fetchEnvelopes();
