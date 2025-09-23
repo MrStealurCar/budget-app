@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
+import Authentication from "./components/Authentication/Authentication";
 import { fetchBudget, fetchTotalBudget } from "./api/api";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1 className="main-title">Aura Finance</h1>
+        <Authentication />
         <div className="budget-field">
           <h4>{savedTotal > 0 ? "" : "Enter your total budget"}</h4>
           <input
