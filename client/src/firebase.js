@@ -6,7 +6,6 @@ import {
   GoogleAuthProvider,
   signOut,
 } from "firebase/auth";
-
 // Your Firebase configuration object
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -38,3 +37,4 @@ export const signInWithGoogle = async () => {
 export const logout = async () => {
   await signOut(auth);
 };
+export { auth, app };
