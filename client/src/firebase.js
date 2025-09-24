@@ -6,17 +6,18 @@ import {
   GoogleAuthProvider,
   signOut,
 } from "firebase/auth";
-// Your Firebase configuration object
+// Firebase configuration object
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBicowv9muA43s3VD_JI1WiHKYq2Fxh1fM",
+  authDomain: "budget-app-5388b.firebaseapp.com",
+  projectId: "budget-app-5388b",
+  storageBucket: "budget-app-5388b.firebasestorage.app",
+  messagingSenderId: "760723205485",
+  appId: "1:760723205485:web:4f8a43fa12e8c6d1607e64",
 };
 
 // Initialize Firebase
+console.log("Firebase Config:", firebaseConfig); // Debugging line
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
