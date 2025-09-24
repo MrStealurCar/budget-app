@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 // Firebase configuration object
 const firebaseConfig = {
-  apiKey: "AIzaSyBicowv9muA43s3VD_JI1WiHKYq2Fxh1fM",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "budget-app-5388b.firebaseapp.com",
   projectId: "budget-app-5388b",
   storageBucket: "budget-app-5388b.firebasestorage.app",
