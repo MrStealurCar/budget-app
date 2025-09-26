@@ -17,11 +17,21 @@ function ProfileMenu() {
   return (
     <div>
       {user ? (
-        <div className="profile-icon-container">
-          <span className="profile-icon">{getInitials(user.displayName)}</span>
-          <span>
-            <button onClick={logout}>Logout</button>
-          </span>
+        <div>
+          <div className="profile-icon-container">
+            <span className="profile-icon" onClick={() => setOpen(!open)}>
+              {getInitials(user.displayName)}
+            </span>
+          </div>
+          <div>
+            {open && (
+              <span className="dropdown-menu">
+                <button onClick={logout} className="logout-btn">
+                  Logout
+                </button>
+              </span>
+            )}
+          </div>
         </div>
       ) : (
         <div className="sign-in-container">
