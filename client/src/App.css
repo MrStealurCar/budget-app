@@ -25,6 +25,21 @@ button:active {
   font-weight: 600;
 }
 
+.sign-in-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  margin-top: -20px;
+}
+
+.sign-in-icon {
+  cursor: pointer;
+}
+
+.sign-in-icon:hover {
+  color: #555;
+}
+
 .budget-field {
   margin-bottom: 10px;
 }
