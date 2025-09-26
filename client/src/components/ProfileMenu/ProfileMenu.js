@@ -25,7 +25,7 @@ function ProfileMenu() {
           </div>
           <div>
             {open && (
-              <span className="dropdown-menu">
+              <span className="dropdown-menu" onClick={() => setOpen(false)}>
                 <button onClick={logout} className="logout-btn">
                   Logout
                 </button>
