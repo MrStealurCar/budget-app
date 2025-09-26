@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
+import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
 import { fetchBudget, fetchTotalBudget } from "./api/api";
 
 function App() {
@@ -20,35 +21,43 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <ProfileMenu />
         <h1 className="main-title">Aura Finance</h1>
-        <div className="budget-field">
-          <h4>{savedTotal > 0 ? "" : "Enter your total budget"}</h4>
-          <input
-            className="new-budget"
-            placeholder="Total Budget"
-            type="number"
-            min={0}
-            value={totalBudget}
-            onChange={(e) => setTotalBudget(e.target.value)}
-          />
-          <button
-            className="save-button"
-            onClick={async () => {
-              const response = await fetchTotalBudget(totalBudget);
-              // Allows 0 to be set as a total budget
-              if (response !== undefined && response !== null) {
-                setSavedTotal(totalBudget);
-                setTotalBudget("");
-              } else {
-                alert("Amount cannot be a negative number.");
-              }
-            }}
-          >
-            Save
-          </button>
+        <div>
+          <div>
+            <div className="budget-field">
+              <h4>{savedTotal > 0 ? "" : "Enter your total budget"}</h4>
+              <input
+                className="new-budget"
+                placeholder="Total Budget"
+                type="number"
+                min={0}
+                value={totalBudget}
+                onChange={(e) => setTotalBudget(e.target.value)}
+              />
+              <button
+                className="save-button"
+                onClick={async () => {
+                  await fetchTotalBudget(totalBudget);
+                  // Allows 0 to be set as a total budget
+                  if (totalBudget !== undefined && totalBudget !== null) {
+                    setSavedTotal(totalBudget);
+                    setTotalBudget("");
+                  } else {
+                    alert("Amount cannot be a negative number.");
+                  }
+                }}
+              >
+                Save
+              </button>
+            </div>
+            <h3>
+              {savedTotal > 0 ? `Your budget is $${Number(savedTotal)}` : ""}
+            </h3>
+          </div>
         </div>
-        <h3>{savedTotal > 0 ? `Your budget is $${Number(savedTotal)}` : ""}</h3>
       </header>
+
       <main className="body">
         <div className="budget-container">
           <BudgetCard
