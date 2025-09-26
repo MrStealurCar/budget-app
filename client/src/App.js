@@ -1,17 +1,15 @@
 import "./App.css";
-import { FaUser } from "react-icons/fa";
-
 import { useState, useEffect } from "react";
-import { signInWithGoogle, logout, auth } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
 import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
+import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
 import { fetchBudget, fetchTotalBudget } from "./api/api";
+
 function App() {
   const [entry, setEntry] = useState([]);
   const [totalBudget, setTotalBudget] = useState("");
   const [savedTotal, setSavedTotal] = useState("");
-  const [user, setUser] = useState(null);
+
   useEffect(() => {
     const getBudget = async () => {
       const data = await fetchBudget();
@@ -20,31 +18,10 @@ function App() {
     getBudget();
   }, [setSavedTotal]);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
   return (
     <div className="App">
       <header className="App-header">
-        {user ? (
-          <div>
-            <p>Hello, {user.displayName}</p>
-            <button onClick={logout}>Logout</button>
-          </div>
-        ) : (
-          <div className="sign-in-container">
-            <FaUser
-              size={24}
-              onClick={signInWithGoogle}
-              className="sign-in-icon"
-              title="Sign in with Google"
-            />
-          </div>
-        )}
+        <ProfileMenu />
         <h1 className="main-title">Aura Finance</h1>
         <div>
           <div>
