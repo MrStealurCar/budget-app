@@ -6,7 +6,7 @@ import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
 import SignIn from "./components/SignIn/SignIn";
-import { handleSignIn } from "./utils/helpers";
+import { handleSignIn, getWelcomeMessage, getFirstName } from "./utils/helpers";
 import { fetchBudget, fetchTotalBudget } from "./api/api";
 
 function App() {
@@ -32,12 +32,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="main-title">Aura Finance</h1>
       {user ? (
         <>
           <header className="App-header">
             <ProfileMenu user={user} />
-
+            <h1 className="main-title">Aura Finance</h1>
+            <h3>
+              {getWelcomeMessage()} {getFirstName(user.displayName)}.
+            </h3>
             <div>
               <div>
                 <div className="budget-field">
