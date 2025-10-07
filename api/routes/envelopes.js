@@ -18,7 +18,7 @@ envelopeRouter.get("/", async (req, res, next) => {
   res.send(response);
 });
 
-//Route for adding envelopes to database
+// Route for adding envelopes to database
 envelopeRouter.post("/", async (req, res, next) => {
   const { title, budget } = req.body;
   if (!title && !budget) {
@@ -83,18 +83,22 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
 
 // Route for setting total budget
 totalBudgetRouter.post("/total_budget", async (req, res, next) => {
-  const { total_budget } = req.body;
+  const { total_budget, user_id } = req.body;
   if (total_budget < 0) {
     res.status(400).send("Amount cannot be a negative number");
   } else {
-    await setSavedTotal(total_budget);
+    await setSavedTotal(total_budget, user_id);
     res.status(201).send(total_budget);
   }
 });
-//Route for getting total budget in database
+// Route for getting total budget in database
 totalBudgetRouter.get("/", async (req, res, next) => {
-  const getTotal = await getSavedTotal();
-  res.send(getTotal);
+  const user_id = req.headers.user_id;
+  if (!user_id) {
+    return res.status(400).send("User ID is required");
+  }
+  const getTotal = await getSavedTotal(user_id);
+  res.json(getTotal);
 });
 
 module.exports = { envelopeRouter, totalBudgetRouter };
