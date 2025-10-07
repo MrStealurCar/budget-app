@@ -83,11 +83,11 @@ const transferBetweenEntries = async (
   }
 };
 
-const setSavedTotal = async (total_budget) => {
+const setSavedTotal = async (total_budget, user_id) => {
   try {
     const result = await pool.query(
-      "UPDATE saved_total SET total_budget = $1 RETURNING *",
-      [total_budget]
+      "UPDATE saved_total SET total_budget = $1 WHERE user_id = $2 RETURNING *",
+      [total_budget, user_id]
     );
     return result.rows[0];
   } catch (err) {
@@ -95,10 +95,18 @@ const setSavedTotal = async (total_budget) => {
   }
 };
 
-const getSavedTotal = async () => {
+const getSavedTotal = async (userId) => {
   try {
-    const result = await pool.query("SELECT total_budget FROM saved_total");
-    return result.rows[0].total_budget;
+    const result = await pool.query(
+      "SELECT total_budget FROM saved_total WHERE user_id = $1",
+      [userId]
+    );
+    if (result.rows.length === 0) {
+      console.log(`No saved_total found for user ${userId}`);
+      return { total_budget: 0 };
+    }
+
+    return result.rows[0];
   } catch (err) {
     console.error("Could not get budget", err);
   }
