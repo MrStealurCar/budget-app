@@ -6,7 +6,7 @@ import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
 import SignIn from "./components/SignIn/SignIn";
-import { handleSignIn, getWelcomeMessage, getFirstName } from "./utils/helpers";
+import { getWelcomeMessage, getFirstName } from "./utils/helpers";
 import { fetchBudget, fetchTotalBudget } from "./api/api";
 
 function App() {
@@ -17,11 +17,12 @@ function App() {
 
   useEffect(() => {
     const getBudget = async () => {
-      const data = await fetchBudget();
+      if (!user) return;
+      const data = await fetchBudget(user);
       setSavedTotal(data);
     };
     getBudget();
-  }, [setSavedTotal]);
+  }, [user, setSavedTotal]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -29,6 +30,12 @@ function App() {
     });
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchBudget(user).then((data) => setSavedTotal(data));
+    }
+  }, [user]);
 
   return (
     <div className="App">
@@ -55,7 +62,7 @@ function App() {
                   <button
                     className="save-button"
                     onClick={async () => {
-                      await fetchTotalBudget(totalBudget);
+                      await fetchTotalBudget(totalBudget, user);
                       // Allows 0 to be set as a total budget
                       if (totalBudget !== undefined && totalBudget !== null) {
                         setSavedTotal(totalBudget);
@@ -98,7 +105,7 @@ function App() {
           </main>
         </>
       ) : (
-        <SignIn user={user} handleSignIn={handleSignIn} />
+        <SignIn />
       )}
     </div>
   );
