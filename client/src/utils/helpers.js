@@ -25,11 +25,10 @@ export const getInitials = (name) => {
   return initials.slice(0, 2).join("");
 };
 
-export const handleSignIn = async (onSuccess) => {
+export const handleSignIn = async () => {
   try {
     const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    onSuccess(result.user);
+    await signInWithPopup(auth, provider);
   } catch (error) {
     console.error("Sign-in error:", error);
   }
