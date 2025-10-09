@@ -14,7 +14,7 @@ export const fetchBudget = async (user) => {
       headers: { user_id: user.uid },
     });
     const data = await budgetResponse.json();
-    return data.total_budget;
+    return data.remaining_budget;
   } catch (error) {
     console.error(`Error getting total budget: ${error}`);
   }
