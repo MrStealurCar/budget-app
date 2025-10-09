@@ -30,13 +30,6 @@ function App() {
     });
     return () => unsubscribe();
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      fetchBudget(user).then((data) => setSavedTotal(data));
-    }
-  }, [user]);
-
   return (
     <div className="App">
       {user ? (
