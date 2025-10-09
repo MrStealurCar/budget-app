@@ -20,7 +20,7 @@ envelopeRouter.get("/", async (req, res, next) => {
 
 // Route for adding envelopes to database
 envelopeRouter.post("/", async (req, res, next) => {
-  const { title, budget } = req.body;
+  const { title, budget, user_id } = req.body;
   if (!title && !budget) {
     return res
       .status(400)
@@ -34,7 +34,7 @@ envelopeRouter.post("/", async (req, res, next) => {
       error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
     });
   }
-  const newBudget = await createNewEntry(title, budget);
+  const newBudget = await createNewEntry(title, budget, user_id);
   res.status(201).send(newBudget);
 });
 
