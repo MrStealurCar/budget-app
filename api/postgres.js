@@ -86,7 +86,7 @@ const transferBetweenEntries = async (
 const setSavedTotal = async (total_budget, user_id) => {
   try {
     const result = await pool.query(
-      "UPDATE saved_total SET total_budget = $1 WHERE user_id = $2 RETURNING *",
+      "INSERT INTO saved_total (total_budget, user_id ) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET total_budget = $1 RETURNING *;",
       [total_budget, user_id]
     );
     return result.rows[0];
@@ -98,7 +98,7 @@ const setSavedTotal = async (total_budget, user_id) => {
 const getSavedTotal = async (userId) => {
   try {
     const result = await pool.query(
-      "SELECT total_budget FROM saved_total WHERE user_id = $1",
+      "SELECT s.total_budget - COALESCE(SUM(b.budget), 0) AS remaining_budget FROM saved_total s LEFT JOIN budget_entries b ON s.user_id = b.user_id WHERE s.user_id = $1 GROUP BY s.total_budget;",
       [userId]
     );
     if (result.rows.length === 0) {
