@@ -15,6 +15,7 @@ Aura Finance is a simple fullstack budget planner that allows users to set a tot
 - Express.js
 - Node.js
 - PostgreSQL
+- Google Firebase
 
 ## Description
 
@@ -40,6 +41,8 @@ After refactoring to use PostgreSQL, the app now:
 - Prevents users from setting a negative total amount or creating an entry with a negative budget.
 - Keeps and saves entries and total amount on refresh.
 - Adds any leftover money back to total amount if entry is deleted.
+
+I'm currently making the app personalized for each user. Users can sign in via Google Firebase, and I'm refactoring the SQL queries, API routes, and helper functions to show only entries and budgets matching the signed-in user’s ID. The sign-in feature is optional for now, but the final version will require users to sign in before using the app.
 
 ## Why I built this
 
