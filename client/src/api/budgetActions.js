@@ -8,8 +8,8 @@ const handleCreate = async (
   setBudget,
   savedTotal,
   setSavedTotal,
-  error,
-  setError
+  setError,
+  user
 ) => {
   try {
     const response = await fetch(`/envelopes`, {
@@ -17,14 +17,14 @@ const handleCreate = async (
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ title: title, budget: budget }),
+      body: JSON.stringify({ title: title, budget: budget, user_id: user.uid }),
     });
     if (response.ok) {
       const data = await fetchEnvelopes();
       const newTotal = savedTotal - budget;
       setEntry(data);
       setSavedTotal(newTotal);
-      await fetchTotalBudget(newTotal);
+      await fetchTotalBudget(newTotal, user);
       setTitle("");
       setBudget("");
     } else {
