@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
-function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
+function AddEntry({ setEntry, savedTotal, setSavedTotal, user }) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -56,8 +56,8 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal }) {
                   setBudget,
                   savedTotal,
                   setSavedTotal,
-                  error,
-                  setError
+                  setError,
+                  user
                 );
                 setIsVisible(null);
               }}
