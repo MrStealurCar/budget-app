@@ -25,11 +25,11 @@ const getAllEntries = async () => {
   }
 };
 
-const createNewEntry = async (title, budget) => {
+const createNewEntry = async (title, budget, user_id) => {
   try {
     const result = await pool.query(
-      "INSERT INTO budget_entries(title, budget) VALUES($1, $2) RETURNING *",
-      [title, budget]
+      "INSERT INTO budget_entries(title, budget, user_id) VALUES($1, $2, $3) RETURNING *",
+      [title, budget, user_id]
     );
     return result.rows[0];
   } catch (err) {
