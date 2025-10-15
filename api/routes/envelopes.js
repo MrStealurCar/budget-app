@@ -14,7 +14,11 @@ const {
 
 // Route for getting all envelopes in database
 envelopeRouter.get("/", async (req, res, next) => {
-  const response = await getAllEntries();
+  const user_id = req.headers.user_id;
+  if (!user_id) {
+    return res.status(400).send("User ID is required");
+  }
+  const response = await getAllEntries(user_id);
   res.send(response);
 });
 
