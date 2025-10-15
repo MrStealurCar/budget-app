@@ -1,6 +1,8 @@
-const fetchEnvelopes = async () => {
+const fetchEnvelopes = async (user) => {
   try {
-    const envelopeResponse = await fetch(`/envelopes`);
+    const envelopeResponse = await fetch(`/envelopes`, {
+      headers: { user_id: user.uid },
+    });
     const data = await envelopeResponse.json();
     return data;
   } catch (error) {
