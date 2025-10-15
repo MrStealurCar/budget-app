@@ -14,10 +14,11 @@ pool.on("error", (err) => {
   console.error("Unexpected error on idle client", err);
 });
 
-const getAllEntries = async () => {
+const getAllEntries = async (user_id) => {
   try {
     const result = await pool.query(
-      "SELECT * FROM budget_entries ORDER BY id;"
+      "SELECT * FROM budget_entries WHERE user_id = $1 ORDER BY id;",
+      [user_id]
     );
     return result.rows;
   } catch (err) {
