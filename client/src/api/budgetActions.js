@@ -20,7 +20,7 @@ const handleCreate = async (
       body: JSON.stringify({ title: title, budget: budget, user_id: user.uid }),
     });
     if (response.ok) {
-      const data = await fetchEnvelopes();
+      const data = await fetchEnvelopes(user);
       const newTotal = savedTotal - budget;
       setEntry(data);
       setSavedTotal(newTotal);
