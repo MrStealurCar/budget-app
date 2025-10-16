@@ -38,11 +38,11 @@ const createNewEntry = async (title, budget, user_id) => {
   }
 };
 
-const editEntry = async (id, title, budget) => {
+const editEntry = async (id, title, budget, user_id) => {
   try {
     const result = await pool.query(
-      "UPDATE budget_entries SET title = $2, budget = $3 WHERE id = $1 RETURNING *",
-      [id, title, budget]
+      "UPDATE budget_entries SET title = $2, budget = $3 WHERE id = $1 AND user_id = $4 RETURNING *",
+      [id, title, budget, user_id]
     );
     return result.rows[0];
   } catch (err) {
