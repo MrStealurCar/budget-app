@@ -58,6 +58,7 @@ function DetailedView({
           setEditId={setEditId}
           savedTotal={savedTotal}
           setSavedTotal={setSavedTotal}
+          user={user}
         />
       )}
       <div>
