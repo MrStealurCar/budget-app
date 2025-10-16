@@ -1,4 +1,3 @@
-import React from "react";
 import "./ActionButtons.css";
 import { handleDelete } from "../../api/budgetActions";
 function ActionButtons({
@@ -12,6 +11,7 @@ function ActionButtons({
   savedTotal,
   setSavedTotal,
   setTransferId,
+  user,
 }) {
   return (
     <div className="handler-buttons">
@@ -25,7 +25,8 @@ function ActionButtons({
             setEntry,
             savedTotal,
             setSavedTotal,
-            item.budget
+            item.budget,
+            user
           );
         }}
       >

@@ -1,4 +1,3 @@
-import React from "react";
 import "./DetailedView.css";
 import ActionButtons from "../ActionButtons/ActionButtons";
 import EditMode from "../EditMode/EditMode";
@@ -18,6 +17,7 @@ function DetailedView({
   setTransferId,
   savedTotal,
   setSavedTotal,
+  user,
 }) {
   return (
     <div>
@@ -34,6 +34,7 @@ function DetailedView({
           setSavedTotal={setSavedTotal}
           transferId={transferId}
           setTransferId={setTransferId}
+          user={user}
         />
         <button
           className="close-button"

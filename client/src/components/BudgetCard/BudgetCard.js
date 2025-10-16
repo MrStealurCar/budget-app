@@ -54,6 +54,7 @@ function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal, user }) {
                   setTransferId={setTransferId}
                   savedTotal={savedTotal}
                   setSavedTotal={setSavedTotal}
+                  user={user}
                 />
               )}
             </span>

@@ -68,7 +68,8 @@ const handleDelete = async (
   setEntry,
   savedTotal,
   setSavedTotal,
-  budget
+  budget,
+  user
 ) => {
   try {
     await fetch(`/envelopes/${id}`, {
