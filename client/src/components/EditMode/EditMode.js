@@ -1,4 +1,3 @@
-import React from "react";
 import { handleEdit } from "../../api/budgetActions";
 import "./EditMode.css";
 function EditMode({
@@ -11,6 +10,7 @@ function EditMode({
   setEditId,
   savedTotal,
   setSavedTotal,
+  user,
 }) {
   return (
     <div className="edit-container">
@@ -35,7 +35,8 @@ function EditMode({
             newBudget,
             setEntry,
             savedTotal,
-            setSavedTotal
+            setSavedTotal,
+            user
           );
           setEditId(null);
           setNewTitle("");
