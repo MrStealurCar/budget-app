@@ -74,11 +74,15 @@ const handleDelete = async (
   try {
     await fetch(`/envelopes/${id}`, {
       method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        user_id: user.uid,
+      },
     });
-    const data = await fetchEnvelopes();
+    const data = await fetchEnvelopes(user);
     setEntry(data);
-    setSavedTotal(savedTotal + Number(budget));
-    await fetchTotalBudget(savedTotal + Number(budget));
+    setSavedTotal(Number(savedTotal) + Number(budget));
+    await fetchTotalBudget(Number(savedTotal) + Number(budget), user);
   } catch (error) {
     console.error("could not delete item:" + error);
   }
