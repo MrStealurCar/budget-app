@@ -57,7 +57,11 @@ envelopeRouter.put("/:id", async (req, res, next) => {
 // Route for deleting envelopes based on ID
 envelopeRouter.delete("/:id", async (req, res, next) => {
   const envelopeId = req.params.id;
-  await deleteEntry(envelopeId);
+  const user_id = req.headers.user_id;
+  if (!envelopeId) {
+    res.status(404).send();
+  }
+  await deleteEntry(envelopeId, user_id);
 
   res.status(204).send();
 });
