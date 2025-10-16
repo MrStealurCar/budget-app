@@ -47,10 +47,16 @@ envelopeRouter.put("/:id", async (req, res, next) => {
   const envelopeId = req.params.id;
   const envelopeTitle = req.body.title;
   const envelopeBudget = req.body.budget;
-  if (!envelopeId) {
-    res.status(404).send();
+  const user_id = req.headers.user_id;
+  if (!envelopeId || !user_id) {
+    return res.status(404).send();
   }
-  const result = await editEntry(envelopeId, envelopeTitle, envelopeBudget);
+  const result = await editEntry(
+    envelopeId,
+    envelopeTitle,
+    envelopeBudget,
+    user_id
+  );
   res.send(result);
 });
 
