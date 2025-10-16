@@ -50,11 +50,11 @@ const editEntry = async (id, title, budget) => {
   }
 };
 
-const deleteEntry = async (id) => {
+const deleteEntry = async (id, user_id) => {
   try {
     const result = await pool.query(
-      "DELETE FROM budget_entries WHERE id=$1 RETURNING *",
-      [id]
+      "DELETE FROM budget_entries WHERE id= $1 AND user_id = $2 RETURNING *",
+      [id, user_id]
     );
     return result.rows;
   } catch (err) {
