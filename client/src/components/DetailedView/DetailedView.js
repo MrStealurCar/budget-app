@@ -70,6 +70,7 @@ function DetailedView({
             item={item}
             transferId={transferId}
             setTransferId={setTransferId}
+            user={user}
           />
         )}
       </div>
