@@ -65,17 +65,18 @@ const deleteEntry = async (id, user_id) => {
 const transferBetweenEntries = async (
   sourceId,
   destinationId,
-  budgetToTransfer
+  budgetToTransfer,
+  user_id
 ) => {
   try {
     await pool.query("BEGIN");
     await pool.query(
-      "UPDATE budget_entries SET budget = budget - $2 WHERE id = $1",
-      [sourceId, budgetToTransfer]
+      "UPDATE budget_entries SET budget = budget - $2 WHERE id = $1 AND user_id = $3",
+      [sourceId, budgetToTransfer, user_id]
     );
     await pool.query(
-      "UPDATE budget_entries SET budget = budget + $2 WHERE id = $1",
-      [destinationId, budgetToTransfer]
+      "UPDATE budget_entries SET budget = budget + $2 WHERE id = $1 AND user_id = $3",
+      [destinationId, budgetToTransfer, user_id]
     );
     await pool.query("COMMIT");
   } catch (err) {
