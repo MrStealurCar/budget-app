@@ -4,9 +4,9 @@ import { auth } from "../firebase";
 export const getWelcomeMessage = () => {
   const welcomeMessages = [];
   const getTime = new Date();
-  if (getTime.getHours() < 11) {
+  if (getTime.getHours() <= 11) {
     welcomeMessages.push("Good morning,");
-  } else if (getTime.getHours() < 18) {
+  } else if (getTime.getHours() <= 17) {
     welcomeMessages.push("Good afternoon,");
   } else {
     welcomeMessages.push("Good evening,");
