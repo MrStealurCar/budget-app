@@ -90,17 +90,24 @@ const handleDelete = async (
   }
 };
 
-const handleTransfer = async (sourceId, destinationId, budget, setEntry) => {
+const handleTransfer = async (
+  sourceId,
+  destinationId,
+  budget,
+  setEntry,
+  user
+) => {
   try {
     if (typeof budget === "number") {
       await fetch(`/envelopes/${sourceId}/${destinationId}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          user_id: user.uid,
         },
         body: JSON.stringify({ amount: budget }),
       });
-      const data = await fetchEnvelopes();
+      const data = await fetchEnvelopes(user);
       setEntry(data);
     } else {
       throw new Error("input must be a number type");
