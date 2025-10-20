@@ -77,9 +77,9 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
   const amountToTransfer = Number(req.body.amount);
   const sourceId = req.params.sourceId;
   const sourceIdToNum = Number(sourceId);
-
   const destinationId = req.params.destinationId;
   const destinationIdToNum = Number(destinationId);
+  const user_id = req.headers.user_id;
 
   if (!sourceId) {
     res.status(404).send();
@@ -87,7 +87,8 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
     await transferBetweenEntries(
       sourceIdToNum,
       destinationIdToNum,
-      amountToTransfer
+      amountToTransfer,
+      user_id
     );
     res.status(200).send({
       message: "Transfer successful",
