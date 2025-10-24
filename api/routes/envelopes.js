@@ -98,7 +98,8 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
 
 // Route for setting total budget
 totalBudgetRouter.post("/total_budget", async (req, res, next) => {
-  const { total_budget, user_id } = req.body;
+  const { user_id } = req.headers;
+  const { total_budget } = req.body;
   if (total_budget < 0) {
     res.status(400).send("Amount cannot be a negative number");
   } else {

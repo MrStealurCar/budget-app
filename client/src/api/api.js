@@ -28,8 +28,9 @@ export const fetchTotalBudget = async (total_budget, user) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        user_id: user.uid,
       },
-      body: JSON.stringify({ total_budget, user_id: user.uid }),
+      body: JSON.stringify({ total_budget }),
     });
     const data = await budgetResponse.json();
     return data.total_budget;
