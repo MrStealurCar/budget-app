@@ -1,5 +1,5 @@
 import fetchEnvelopes from "./api";
-import { fetchTotalBudget } from "./api";
+import { fetchTotalBudget, fetchBudget } from "./api";
 const handleCreate = async (
   title,
   budget,
@@ -21,10 +21,9 @@ const handleCreate = async (
     });
     if (response.ok) {
       const data = await fetchEnvelopes(user);
-      const newTotal = savedTotal - budget;
+      const newTotal = await fetchBudget(user);
       setEntry(data);
       setSavedTotal(newTotal);
-      await fetchTotalBudget(newTotal, user);
       setTitle("");
       setBudget("");
     } else {
