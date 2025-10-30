@@ -79,6 +79,7 @@ function App() {
                     : ""}
                 </h3>
               </div>
+              {error && <p className="error-message">{error}</p>}
             </div>
           </header>
 
@@ -99,7 +100,6 @@ function App() {
                 savedTotal={savedTotal}
                 setSavedTotal={setSavedTotal}
                 user={user}
-                error={error}
                 setError={setError}
               />
             </div>

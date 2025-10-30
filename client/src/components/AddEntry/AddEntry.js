@@ -1,14 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
-function AddEntry({
-  setEntry,
-  savedTotal,
-  setSavedTotal,
-  user,
-  error,
-  setError,
-}) {
+function AddEntry({ setEntry, savedTotal, setSavedTotal, user, setError }) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -23,7 +16,6 @@ function AddEntry({
           Add Entry
         </button>
       </div>
-      {error && <p className="error-message">{error}</p>}
       {isVisible && (
         <div>
           <div className="input-container">
