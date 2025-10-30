@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./TransferMode.css";
 import { handleTransfer } from "../../api/budgetActions";
-function TransferMode({ sourceId, entry, setEntry, user }) {
+function TransferMode({ sourceId, entry, setEntry, user, setError }) {
   const [transferAmount, setTransferAmount] = useState("");
   const [destination, setDestination] = useState(null);
 
@@ -27,7 +27,7 @@ function TransferMode({ sourceId, entry, setEntry, user }) {
       <button
         className="transfer-button"
         onClick={() => {
-          handleTransfer(sourceId, destination, transferAmount, setEntry, user);
+          handleTransfer(sourceId, destination, transferAmount, setEntry, user, setError);
         }}
       >
         Transfer

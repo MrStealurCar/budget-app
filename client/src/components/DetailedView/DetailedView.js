@@ -18,6 +18,7 @@ function DetailedView({
   savedTotal,
   setSavedTotal,
   user,
+  setError,
 }) {
   return (
     <div>
@@ -71,6 +72,7 @@ function DetailedView({
             transferId={transferId}
             setTransferId={setTransferId}
             user={user}
+            setError={setError}
           />
         )}
       </div>

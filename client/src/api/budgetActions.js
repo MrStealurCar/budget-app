@@ -94,7 +94,8 @@ const handleTransfer = async (
   destinationId,
   budget,
   setEntry,
-  user
+  user,
+  setError
 ) => {
   try {
     if (typeof budget === "number") {
