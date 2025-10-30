@@ -99,7 +99,7 @@ const handleTransfer = async (
 ) => {
   try {
     if (typeof budget === "number") {
-      await fetch(`/envelopes/${sourceId}/${destinationId}`, {
+      const response = await fetch(`/envelopes/${sourceId}/${destinationId}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -107,8 +107,16 @@ const handleTransfer = async (
         },
         body: JSON.stringify({ amount: budget }),
       });
+
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.error);
+        return;
+      }
+
       const data = await fetchEnvelopes(user);
       setEntry(data);
+      setError(null);
     } else {
       throw new Error("input must be a number type");
     }
