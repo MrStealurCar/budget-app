@@ -101,12 +101,15 @@ totalBudgetRouter.post("/total_budget", async (req, res, next) => {
   const { user_id } = req.headers;
   const { total_budget } = req.body;
   if (total_budget < 0) {
-    res.status(400).send("Amount cannot be a negative number");
+    res.status(400).json({
+      error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
+    });
   } else {
     await setSavedTotal(total_budget, user_id);
-    res.status(201).send(total_budget);
+    res.status(201).json({ total_budget });
   }
 });
+
 // Route for getting total budget in database
 totalBudgetRouter.get("/", async (req, res, next) => {
   const user_id = req.headers.user_id;

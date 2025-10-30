@@ -55,6 +55,10 @@ function App() {
                   <button
                     className="save-button"
                     onClick={async () => {
+                      if (totalBudget < 0) {
+                        alert("Amount cannot be a negative number.");
+                        return;
+                      }
                       await fetchTotalBudget(totalBudget, user);
                       // Allows 0 to be set as a total budget
                       if (totalBudget !== undefined && totalBudget !== null) {

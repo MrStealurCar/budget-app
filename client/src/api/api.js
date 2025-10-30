@@ -32,8 +32,14 @@ export const fetchTotalBudget = async (total_budget, user) => {
       },
       body: JSON.stringify({ total_budget }),
     });
-    const data = await budgetResponse.json();
-    return data.total_budget;
+    if (!budgetResponse.ok) {
+      const errorData = await budgetResponse.json();
+      alert(errorData.error);
+      throw new Error(errorData.error);
+    } else {
+      const data = await budgetResponse.json();
+      return data.total_budget;
+    }
   } catch (error) {
     console.error(`Error fetching budget data: ${error}`);
   }
