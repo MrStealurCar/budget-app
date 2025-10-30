@@ -10,6 +10,7 @@ const {
   transferBetweenEntries,
   setSavedTotal,
   getSavedTotal,
+  getEnvelopeById,
 } = require("../postgres.js");
 
 // Route for getting all envelopes in database
@@ -80,9 +81,14 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
   const destinationId = req.params.destinationId;
   const destinationIdToNum = Number(destinationId);
   const user_id = req.headers.user_id;
+  const sourceEnvelope = await getEnvelopeById(sourceIdToNum, user_id);
 
-  if (!sourceId) {
-    res.status(404).send();
+  if (!sourceEnvelope) {
+    return res.status(404).send({ error: "Source envelope not found." });
+  } else if (amountToTransfer > sourceEnvelope.budget) {
+    return res.status(400).send({
+      error: "Insufficient funds in envelope to complete transfer.",
+    });
   } else {
     await transferBetweenEntries(
       sourceIdToNum,
