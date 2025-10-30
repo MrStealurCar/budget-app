@@ -114,6 +114,18 @@ const getSavedTotal = async (userId) => {
   }
 };
 
+const getEnvelopeById = async (id, user_id) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM budget_entries WHERE id = $1 AND user_id = $2;",
+      [id, user_id]
+    );
+    return result.rows[0];
+  } catch (err) {
+    console.error("Could not get envelope by ID", err);
+  }
+};
+
 module.exports = {
   getAllEntries,
   createNewEntry,
@@ -122,4 +134,5 @@ module.exports = {
   transferBetweenEntries,
   setSavedTotal,
   getSavedTotal,
+  getEnvelopeById,
 };
