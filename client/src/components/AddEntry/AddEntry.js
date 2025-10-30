@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
-function AddEntry({ setEntry, savedTotal, setSavedTotal, user }) {
+function AddEntry({
+  setEntry,
+  savedTotal,
+  setSavedTotal,
+  user,
+  error,
+  setError,
+}) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-  const [error, setError] = useState(null);
+
   return (
     <div>
       <div className="create-entry">

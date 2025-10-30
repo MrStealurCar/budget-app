@@ -14,6 +14,7 @@ function App() {
   const [totalBudget, setTotalBudget] = useState("");
   const [savedTotal, setSavedTotal] = useState("");
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getBudget = async () => {
@@ -89,6 +90,7 @@ function App() {
                 savedTotal={savedTotal}
                 setSavedTotal={setSavedTotal}
                 user={user}
+                setError={setError}
               />
             </div>
             <div className="entry-container">
@@ -97,6 +99,8 @@ function App() {
                 savedTotal={savedTotal}
                 setSavedTotal={setSavedTotal}
                 user={user}
+                error={error}
+                setError={setError}
               />
             </div>
           </main>
