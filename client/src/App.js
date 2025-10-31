@@ -6,8 +6,9 @@ import BudgetCard from "./components/BudgetCard/BudgetCard";
 import AddEntry from "./components/AddEntry/AddEntry";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
 import SignIn from "./components/SignIn/SignIn";
+import { handleSetBudget } from "./api/budgetActions";
 import { getWelcomeMessage, getFirstName } from "./utils/helpers";
-import { fetchBudget, fetchTotalBudget } from "./api/api";
+import { fetchBudget } from "./api/api";
 
 function App() {
   const [entry, setEntry] = useState([]);
@@ -51,23 +52,21 @@ function App() {
                     type="number"
                     min={0}
                     value={totalBudget}
-                    onChange={(e) => setTotalBudget(e.target.value)}
+                    onChange={(e) => {
+                      setTotalBudget(e.target.value);
+                      if (error) setError("");
+                    }}
                   />
                   <button
                     className="save-button"
                     onClick={async () => {
-                      if (totalBudget < 0) {
-                        alert("Amount cannot be a negative number.");
-                        return;
-                      }
-                      await fetchTotalBudget(totalBudget, user);
-                      // Allows 0 to be set as a total budget
-                      if (totalBudget !== undefined && totalBudget !== null) {
-                        setSavedTotal(totalBudget);
-                        setTotalBudget("");
-                      } else {
-                        alert("Amount cannot be a negative number.");
-                      }
+                      await handleSetBudget(
+                        totalBudget,
+                        setSavedTotal,
+                        setTotalBudget,
+                        setError,
+                        user
+                      );
                     }}
                   >
                     Save

@@ -1,5 +1,26 @@
 import fetchEnvelopes from "./api";
 import { fetchTotalBudget, fetchBudget } from "./api";
+
+const handleSetBudget = async (
+  totalBudget,
+  setSavedTotal,
+  setTotalBudget,
+  setError,
+  user
+) => {
+  try {
+    const newTotalBudget = await fetchTotalBudget(totalBudget, user);
+    if (newTotalBudget !== undefined) {
+      setSavedTotal(newTotalBudget);
+      setTotalBudget("");
+      setError("");
+    }
+  } catch (error) {
+    setError(error.message);
+    console.error(`Error setting total budget: ${error}`);
+  }
+};
+
 const handleCreate = async (
   title,
   budget,
@@ -125,4 +146,10 @@ const handleTransfer = async (
   }
 };
 
-export { handleCreate, handleEdit, handleDelete, handleTransfer };
+export {
+  handleCreate,
+  handleEdit,
+  handleDelete,
+  handleTransfer,
+  handleSetBudget,
+};
