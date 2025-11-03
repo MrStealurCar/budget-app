@@ -49,8 +49,14 @@ envelopeRouter.put("/:id", async (req, res, next) => {
   const envelopeTitle = req.body.title;
   const envelopeBudget = req.body.budget;
   const user_id = req.headers.user_id;
-  if (!envelopeId || !user_id) {
-    return res.status(404).send();
+  if (!envelopeId) {
+    return res.status(404).send({ error: "Envelope not found." });
+  } else if (!user_id) {
+    return res.status(400).send({ error: "User ID not found" });
+  } else if (envelopeBudget < MIN_BUDGET_AMT) {
+    return res.status(400).send({
+      error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
+    });
   }
   const result = await editEntry(
     envelopeId,
