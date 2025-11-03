@@ -97,14 +97,14 @@ const setSavedTotal = async (total_budget, user_id) => {
   }
 };
 
-const getSavedTotal = async (userId) => {
+const getSavedTotal = async (user_id) => {
   try {
     const result = await pool.query(
       "SELECT s.total_budget - COALESCE(SUM(b.budget), 0) AS remaining_budget FROM saved_total s LEFT JOIN budget_entries b ON s.user_id = b.user_id WHERE s.user_id = $1 GROUP BY s.total_budget;",
-      [userId]
+      [user_id]
     );
     if (result.rows.length === 0) {
-      console.log(`No saved_total found for user ${userId}`);
+      console.log(`No saved_total found for user ${user_id}`);
       return { total_budget: 0 };
     }
 
