@@ -2,6 +2,7 @@ import "./DetailedView.css";
 import ActionButtons from "../ActionButtons/ActionButtons";
 import EditMode from "../EditMode/EditMode";
 import TransferMode from "../TransferMode/TransferMode";
+
 function DetailedView({
   item,
   editId,
@@ -60,6 +61,7 @@ function DetailedView({
           savedTotal={savedTotal}
           setSavedTotal={setSavedTotal}
           user={user}
+          setError={setError}
         />
       )}
       <div>

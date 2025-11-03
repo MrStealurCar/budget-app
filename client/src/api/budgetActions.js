@@ -65,11 +65,12 @@ const handleEdit = async (
   setEntry,
   savedTotal,
   setSavedTotal,
-  user
+  user,
+  setError
 ) => {
   let difference = Number(budget) - Number(originalBudget);
   try {
-    await fetch(`/envelopes/${id}`, {
+    const response = await fetch(`/envelopes/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -77,9 +78,15 @@ const handleEdit = async (
       },
       body: JSON.stringify({ title: title, budget: budget }),
     });
-    const data = await fetchEnvelopes(user);
-    setEntry(data);
-    setSavedTotal(Number(savedTotal) - Number(difference));
+    if (response.ok) {
+      const data = await fetchEnvelopes(user);
+      setEntry(data);
+      setSavedTotal(Number(savedTotal) - Number(difference));
+    } else {
+      const data = await response.json();
+      setError(data.error);
+      throw new Error(data.error);
+    }
   } catch (error) {
     console.error("could not update item:" + error);
   }

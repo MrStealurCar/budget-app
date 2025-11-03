@@ -11,6 +11,7 @@ function EditMode({
   savedTotal,
   setSavedTotal,
   user,
+  setError,
 }) {
   return (
     <div className="edit-container">
@@ -36,7 +37,8 @@ function EditMode({
             setEntry,
             savedTotal,
             setSavedTotal,
-            user
+            user,
+            setError
           );
           setEditId(null);
           setNewTitle("");
