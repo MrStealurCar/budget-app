@@ -32,6 +32,10 @@ const handleCreate = async (
   setError,
   user
 ) => {
+  if (budget > savedTotal) {
+    setError("Budget exceeds total budget available.");
+    return;
+  }
   try {
     const response = await fetch(`/envelopes`, {
       method: "POST",
@@ -40,6 +44,7 @@ const handleCreate = async (
       },
       body: JSON.stringify({ title: title, budget: budget, user_id: user.uid }),
     });
+
     if (response.ok) {
       const data = await fetchEnvelopes(user);
       const newTotal = await fetchBudget(user);
