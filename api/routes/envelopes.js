@@ -26,7 +26,12 @@ envelopeRouter.get("/", async (req, res, next) => {
 // Route for adding envelopes to database
 envelopeRouter.post("/", async (req, res, next) => {
   const { title, budget, user_id } = req.body;
-  if (!title && !budget) {
+  const savedTotal = await getSavedTotal(user_id);
+  if (budget > savedTotal.total_budget) {
+    return res
+      .status(400)
+      .send({ error: "Budget exceeds total budget available." });
+  } else if (!title && !budget) {
     return res
       .status(400)
       .send({ error: "New entry must contain a name and a budget." });
@@ -93,7 +98,7 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
     return res.status(404).send({ error: "Source envelope not found." });
   } else if (amountToTransfer > sourceEnvelope.budget) {
     return res.status(400).send({
-      error: "Insufficient funds in envelope to complete transfer.",
+      error: "Insufficient funds in budget to complete transfer.",
     });
   } else {
     await transferBetweenEntries(
@@ -113,12 +118,18 @@ totalBudgetRouter.post("/total_budget", async (req, res, next) => {
   const { user_id } = req.headers;
   const { total_budget } = req.body;
   if (total_budget < 0) {
-    res.status(400).json({
+    return res.status(400).json({
       error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
     });
-  } else {
+  }
+  try {
     await setSavedTotal(total_budget, user_id);
     res.status(201).json({ total_budget });
+  } catch (error) {
+    console.error("Error setting total budget", error);
+    res.status(503).json({
+      error: "Database temporarily unavailable. Please refresh and try again",
+    });
   }
 });
 
@@ -128,8 +139,15 @@ totalBudgetRouter.get("/", async (req, res, next) => {
   if (!user_id) {
     return res.status(400).send("User ID is required");
   }
-  const getTotal = await getSavedTotal(user_id);
-  res.json(getTotal);
+  try {
+    const getTotal = await getSavedTotal(user_id);
+    res.json(getTotal);
+  } catch (error) {
+    console.error("Error getting total budget", error);
+    res.status(503).json({
+      error: "Database temporarily unavailable. Please refresh and try again",
+    });
+  }
 });
 
 module.exports = { envelopeRouter, totalBudgetRouter };
