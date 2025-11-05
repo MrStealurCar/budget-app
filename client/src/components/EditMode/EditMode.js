@@ -24,7 +24,10 @@ function EditMode({
       <input
         className="input"
         value={newBudget}
-        onChange={(e) => setNewBudget(Number(e.target.value))}
+        onChange={(e) => {
+          setNewBudget(Number(e.target.value));
+          setError(null);
+        }}
       />
       <button
         className="save-button"
