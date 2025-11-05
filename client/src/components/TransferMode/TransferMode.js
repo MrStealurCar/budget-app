@@ -7,15 +7,8 @@ function TransferMode({ sourceId, entry, setEntry, user, setError }) {
 
   return (
     <div className="transfer-mode">
-      <input
-        value={transferAmount}
-        placeholder="Amount"
-        type="number"
-        onChange={(e) => setTransferAmount(Number(e.target.value))}
-        required
-      />
       <select onChange={(e) => setDestination(Number(e.target.value))} required>
-        <option value={""}>Select an Entry</option>
+        <option value={""}>Transfer to</option>
         {entry
           .filter((item) => item.id !== sourceId)
           .map((item) => (
@@ -24,10 +17,25 @@ function TransferMode({ sourceId, entry, setEntry, user, setError }) {
             </option>
           ))}
       </select>
+
+      <input
+        value={transferAmount}
+        placeholder="Amount"
+        type="number"
+        onChange={(e) => setTransferAmount(Number(e.target.value))}
+        required
+      />
       <button
         className="transfer-button"
         onClick={() => {
-          handleTransfer(sourceId, destination, transferAmount, setEntry, user, setError);
+          handleTransfer(
+            sourceId,
+            destination,
+            transferAmount,
+            setEntry,
+            user,
+            setError
+          );
         }}
       >
         Transfer
