@@ -96,9 +96,17 @@ envelopeRouter.post("/:sourceId/:destinationId", async (req, res, next) => {
 
   if (!sourceEnvelope) {
     return res.status(404).send({ error: "Source envelope not found." });
+  } else if (amountToTransfer <= 0) {
+    return res.status(400).send({
+      error: "Transfer amount must be a positive number.",
+    });
   } else if (amountToTransfer > sourceEnvelope.budget) {
     return res.status(400).send({
       error: "Insufficient funds in budget to complete transfer.",
+    });
+  } else if (amountToTransfer == sourceEnvelope.budget) {
+    return res.status(400).send({
+      error: "Cannot transfer entire budget from entry.",
     });
   } else {
     await transferBetweenEntries(
