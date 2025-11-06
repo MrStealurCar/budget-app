@@ -12,8 +12,8 @@ import { fetchBudget } from "./api/api";
 
 function App() {
   const [entry, setEntry] = useState([]);
-  const [totalBudget, setTotalBudget] = useState("");
-  const [savedTotal, setSavedTotal] = useState("");
+  const [totalBudget, setTotalBudget] = useState(0);
+  const [savedTotal, setSavedTotal] = useState(0);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
