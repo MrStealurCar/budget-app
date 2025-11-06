@@ -25,7 +25,8 @@ envelopeRouter.get("/", async (req, res, next) => {
 
 // Route for adding envelopes to database
 envelopeRouter.post("/", async (req, res, next) => {
-  const { title, budget, user_id } = req.body;
+  const { user_id } = req.headers;
+  const { title, budget } = req.body;
   const savedTotal = await getSavedTotal(user_id);
   if (budget > savedTotal.total_budget) {
     return res
