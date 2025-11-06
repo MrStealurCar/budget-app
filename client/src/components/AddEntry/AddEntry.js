@@ -3,7 +3,7 @@ import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
 function AddEntry({ setEntry, savedTotal, setSavedTotal, user, setError }) {
   const [title, setTitle] = useState("");
-  const [budget, setBudget] = useState("");
+  const [budget, setBudget] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   return (
