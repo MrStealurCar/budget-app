@@ -40,9 +40,10 @@ const handleCreate = async (
     const response = await fetch(`/envelopes`, {
       method: "POST",
       headers: {
+        user_id: user.uid,
         "content-type": "application/json",
       },
-      body: JSON.stringify({ title: title, budget: budget, user_id: user.uid }),
+      body: JSON.stringify({ title: title, budget: budget }),
     });
 
     if (response.ok) {
