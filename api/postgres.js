@@ -100,7 +100,7 @@ const setSavedTotal = async (total_budget, user_id) => {
 const getSavedTotal = async (user_id) => {
   try {
     const result = await pool.query(
-      "SELECT s.total_budget - COALESCE(SUM(b.budget), 0) AS remaining_budget FROM saved_total s LEFT JOIN budget_entries b ON s.user_id = b.user_id WHERE s.user_id = $1 GROUP BY s.total_budget;",
+      "SELECT s.total_budget, s.total_budget - COALESCE(SUM(b.budget), 0) AS remaining_budget FROM saved_total s LEFT JOIN budget_entries b ON s.user_id = b.user_id WHERE s.user_id = $1 GROUP BY s.total_budget;",
       [user_id]
     );
     if (result.rows.length === 0) {
