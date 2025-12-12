@@ -8,7 +8,6 @@ function ActionButtons({
   item,
   setEntry,
   transferId,
-  savedTotal,
   setSavedTotal,
   setTransferId,
   user,
@@ -20,14 +19,7 @@ function ActionButtons({
         style={{ color: "red" }}
         title="Delete entry"
         onClick={() => {
-          handleDelete(
-            item.id,
-            setEntry,
-            savedTotal,
-            setSavedTotal,
-            item.budget,
-            user
-          );
+          handleDelete(item.id, setEntry, setSavedTotal, user);
         }}
       >
         Delete
