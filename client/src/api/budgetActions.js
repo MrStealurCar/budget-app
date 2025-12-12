@@ -116,8 +116,10 @@ const handleDelete = async (
     });
     const data = await fetchEnvelopes(user);
     setEntry(data);
-    setSavedTotal(Number(savedTotal) + Number(budget));
-    await fetchTotalBudget(Number(savedTotal) + Number(budget), user);
+
+    // Fetches the authoritative saved total from the backend instead of manually computing
+    const newTotal = await fetchBudget(user);
+    setSavedTotal(newTotal);
   } catch (error) {
     console.error("could not delete item:" + error);
   }
@@ -165,4 +167,4 @@ export {
   handleDelete,
   handleTransfer,
   handleSetBudget,
-};
+}
