@@ -98,14 +98,7 @@ const handleEdit = async (
   }
 };
 
-const handleDelete = async (
-  id,
-  setEntry,
-  savedTotal,
-  setSavedTotal,
-  budget,
-  user
-) => {
+const handleDelete = async (id, setEntry, setSavedTotal, user) => {
   try {
     await fetch(`/envelopes/${id}`, {
       method: "DELETE",
@@ -167,4 +160,4 @@ export {
   handleDelete,
   handleTransfer,
   handleSetBudget,
-}
+};
