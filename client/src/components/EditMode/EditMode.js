@@ -18,7 +18,10 @@ function EditMode({
       <input
         className="input"
         value={newTitle}
-        onChange={(e) => setNewTitle(e.target.value)}
+        onChange={(e) => {
+          setNewTitle(e.target.value);
+          setError(null);
+        }}
       />
 
       <input
