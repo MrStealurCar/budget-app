@@ -63,7 +63,12 @@ envelopeRouter.put("/:id", async (req, res, next) => {
     return res.status(400).send({
       error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
     });
+  } else if (!envelopeTitle) {
+    return res.status(400).send({
+      error: "Title cannot be empty.",
+    });
   }
+
   const result = await editEntry(
     envelopeId,
     envelopeTitle,
