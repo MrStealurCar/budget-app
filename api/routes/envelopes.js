@@ -27,6 +27,7 @@ envelopeRouter.get("/", async (req, res, next) => {
 envelopeRouter.post("/", async (req, res, next) => {
   const { user_id } = req.headers;
   const { title, budget } = req.body;
+  const cleanedTitle = title.trim();
   const savedTotal = await getSavedTotal(user_id);
   if (budget > savedTotal.remaining_budget) {
     return res
@@ -36,7 +37,7 @@ envelopeRouter.post("/", async (req, res, next) => {
     return res
       .status(400)
       .send({ error: "New entry must contain a name and a budget." });
-  } else if (!title) {
+  } else if (!title || !cleanedTitle) {
     return res.status(400).send({
       error: `New budget must contain a name.`,
     });
@@ -45,7 +46,7 @@ envelopeRouter.post("/", async (req, res, next) => {
       error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
     });
   }
-  const newBudget = await createNewEntry(title, budget, user_id);
+  const newBudget = await createNewEntry(cleanedTitle, budget, user_id);
   res.status(201).send(newBudget);
 });
 
@@ -55,6 +56,7 @@ envelopeRouter.put("/:id", async (req, res, next) => {
   const envelopeTitle = req.body.title;
   const envelopeBudget = req.body.budget;
   const user_id = req.headers.user_id;
+  const cleanedTitle = envelopeTitle.trim();
   if (!envelopeId) {
     return res.status(404).send({ error: "Envelope not found." });
   } else if (!user_id) {
@@ -63,7 +65,7 @@ envelopeRouter.put("/:id", async (req, res, next) => {
     return res.status(400).send({
       error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
     });
-  } else if (!envelopeTitle) {
+  } else if (!envelopeTitle || !cleanedTitle) {
     return res.status(400).send({
       error: "Title cannot be empty.",
     });
@@ -71,7 +73,7 @@ envelopeRouter.put("/:id", async (req, res, next) => {
 
   const result = await editEntry(
     envelopeId,
-    envelopeTitle,
+    cleanedTitle,
     envelopeBudget,
     user_id
   );
