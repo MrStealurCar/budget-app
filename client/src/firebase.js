@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 // Firebase configuration object
 const firebaseConfig = {
-  apiKey: "AIzaSyD8AIQeZ1KN6ORHG6SY8Ffra5EUXdP0r0o",
+  apiKey: "AIzaSyD8AIQeZ1KN6ORHG6SY8Ffra5EUXdP0r0o", // Firebase API keys are public identifiers. Access is enforced via Firebase security rules and authentication.
   authDomain: "budget-app-5388b.firebaseapp.com",
   projectId: "budget-app-5388b",
   storageBucket: "budget-app-5388b.firebasestorage.app",
@@ -26,10 +26,10 @@ const provider = new GoogleAuthProvider();
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
-    // User info: result.user
+    // We need to get the user's information from the sign in result
     return result.user;
   } catch (error) {
-    console.error(error);
+    console.error(`Error signing in with Google: ${error}`);
     throw error;
   }
 };
