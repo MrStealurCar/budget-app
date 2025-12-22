@@ -57,10 +57,16 @@ envelopeRouter.put("/:id", async (req, res, next) => {
   const envelopeBudget = req.body.budget;
   const user_id = req.headers.user_id;
   const cleanedTitle = envelopeTitle.trim();
-  if (!envelopeId) {
-    return res.status(404).send({ error: "Envelope not found." });
-  } else if (!user_id) {
+  const envelope = await getEnvelopeById(envelopeId, user_id);
+
+  if (!user_id) {
     return res.status(400).send({ error: "User ID not found" });
+  } else if (!envelope) {
+    return res
+      .status(404)
+      .send({
+        error: "Budget does not exist or incorrect permissions to edit.",
+      });
   } else if (envelopeBudget < MIN_BUDGET_AMT) {
     return res.status(400).send({
       error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
@@ -84,9 +90,19 @@ envelopeRouter.put("/:id", async (req, res, next) => {
 envelopeRouter.delete("/:id", async (req, res, next) => {
   const envelopeId = req.params.id;
   const user_id = req.headers.user_id;
-  if (!envelopeId) {
-    res.status(404).send();
+
+  if (!user_id) {
+    return res.status(400).send({ error: "User ID is required." });
   }
+
+  // Check if the envelope exists and belongs to the user
+  const envelope = await getEnvelopeById(envelopeId, user_id);
+  if (!envelope) {
+    return res.status(404).send({
+      error: "Budget does not exist or incorrect permissions to delete.",
+    });
+  }
+
   await deleteEntry(envelopeId, user_id);
 
   res.status(204).send();
