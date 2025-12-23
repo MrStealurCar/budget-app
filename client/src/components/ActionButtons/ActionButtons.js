@@ -1,4 +1,3 @@
-import React from "react";
 import "./ActionButtons.css";
 import { handleDelete } from "../../api/budgetActions";
 function ActionButtons({
@@ -9,9 +8,9 @@ function ActionButtons({
   item,
   setEntry,
   transferId,
-  savedTotal,
   setSavedTotal,
   setTransferId,
+  user,
 }) {
   return (
     <div className="handler-buttons">
@@ -20,13 +19,7 @@ function ActionButtons({
         style={{ color: "red" }}
         title="Delete entry"
         onClick={() => {
-          handleDelete(
-            item.id,
-            setEntry,
-            savedTotal,
-            setSavedTotal,
-            item.budget
-          );
+          handleDelete(item.id, setEntry, setSavedTotal, user);
         }}
       >
         Delete

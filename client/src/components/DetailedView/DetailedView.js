@@ -1,8 +1,8 @@
-import React from "react";
 import "./DetailedView.css";
 import ActionButtons from "../ActionButtons/ActionButtons";
 import EditMode from "../EditMode/EditMode";
 import TransferMode from "../TransferMode/TransferMode";
+
 function DetailedView({
   item,
   editId,
@@ -18,6 +18,8 @@ function DetailedView({
   setTransferId,
   savedTotal,
   setSavedTotal,
+  user,
+  setError,
 }) {
   return (
     <div>
@@ -30,10 +32,10 @@ function DetailedView({
           item={item}
           entry={entry}
           setEntry={setEntry}
-          savedTotal={savedTotal}
           setSavedTotal={setSavedTotal}
           transferId={transferId}
           setTransferId={setTransferId}
+          user={user}
         />
         <button
           className="close-button"
@@ -57,6 +59,8 @@ function DetailedView({
           setEditId={setEditId}
           savedTotal={savedTotal}
           setSavedTotal={setSavedTotal}
+          user={user}
+          setError={setError}
         />
       )}
       <div>
@@ -68,6 +72,8 @@ function DetailedView({
             item={item}
             transferId={transferId}
             setTransferId={setTransferId}
+            user={user}
+            setError={setError}
           />
         )}
       </div>

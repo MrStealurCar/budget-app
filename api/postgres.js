@@ -14,10 +14,11 @@ pool.on("error", (err) => {
   console.error("Unexpected error on idle client", err);
 });
 
-const getAllEntries = async () => {
+const getAllEntries = async (user_id) => {
   try {
     const result = await pool.query(
-      "SELECT * FROM budget_entries ORDER BY id;"
+      "SELECT * FROM budget_entries WHERE user_id = $1 ORDER BY id;",
+      [user_id]
     );
     return result.rows;
   } catch (err) {
@@ -25,11 +26,11 @@ const getAllEntries = async () => {
   }
 };
 
-const createNewEntry = async (title, budget) => {
+const createNewEntry = async (title, budget, user_id) => {
   try {
     const result = await pool.query(
-      "INSERT INTO budget_entries(title, budget) VALUES($1, $2) RETURNING *",
-      [title, budget]
+      "INSERT INTO budget_entries(title, budget, user_id) VALUES($1, $2, $3) RETURNING *",
+      [title, budget, user_id]
     );
     return result.rows[0];
   } catch (err) {
@@ -37,11 +38,11 @@ const createNewEntry = async (title, budget) => {
   }
 };
 
-const editEntry = async (id, title, budget) => {
+const editEntry = async (id, title, budget, user_id) => {
   try {
     const result = await pool.query(
-      "UPDATE budget_entries SET title = $2, budget = $3 WHERE id = $1 RETURNING *",
-      [id, title, budget]
+      "UPDATE budget_entries SET title = $2, budget = $3 WHERE id = $1 AND user_id = $4 RETURNING *",
+      [id, title, budget, user_id]
     );
     return result.rows[0];
   } catch (err) {
@@ -49,11 +50,11 @@ const editEntry = async (id, title, budget) => {
   }
 };
 
-const deleteEntry = async (id) => {
+const deleteEntry = async (id, user_id) => {
   try {
     const result = await pool.query(
-      "DELETE FROM budget_entries WHERE id=$1 RETURNING *",
-      [id]
+      "DELETE FROM budget_entries WHERE id= $1 AND user_id = $2 RETURNING *",
+      [id, user_id]
     );
     return result.rows;
   } catch (err) {
@@ -64,17 +65,18 @@ const deleteEntry = async (id) => {
 const transferBetweenEntries = async (
   sourceId,
   destinationId,
-  budgetToTransfer
+  budgetToTransfer,
+  user_id
 ) => {
   try {
     await pool.query("BEGIN");
     await pool.query(
-      "UPDATE budget_entries SET budget = budget - $2 WHERE id = $1",
-      [sourceId, budgetToTransfer]
+      "UPDATE budget_entries SET budget = budget - $2 WHERE id = $1 AND user_id = $3",
+      [sourceId, budgetToTransfer, user_id]
     );
     await pool.query(
-      "UPDATE budget_entries SET budget = budget + $2 WHERE id = $1",
-      [destinationId, budgetToTransfer]
+      "UPDATE budget_entries SET budget = budget + $2 WHERE id = $1 AND user_id = $3",
+      [destinationId, budgetToTransfer, user_id]
     );
     await pool.query("COMMIT");
   } catch (err) {
@@ -83,11 +85,11 @@ const transferBetweenEntries = async (
   }
 };
 
-const setSavedTotal = async (total_budget) => {
+const setSavedTotal = async (total_budget, user_id) => {
   try {
     const result = await pool.query(
-      "UPDATE saved_total SET total_budget = $1 RETURNING *",
-      [total_budget]
+      "INSERT INTO saved_total (total_budget, user_id ) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET total_budget = $1 RETURNING *;",
+      [total_budget, user_id]
     );
     return result.rows[0];
   } catch (err) {
@@ -95,12 +97,32 @@ const setSavedTotal = async (total_budget) => {
   }
 };
 
-const getSavedTotal = async () => {
+const getSavedTotal = async (user_id) => {
   try {
-    const result = await pool.query("SELECT total_budget FROM saved_total");
-    return result.rows[0].total_budget;
+    const result = await pool.query(
+      "SELECT s.total_budget, s.total_budget - COALESCE(SUM(b.budget), 0) AS remaining_budget FROM saved_total s LEFT JOIN budget_entries b ON s.user_id = b.user_id WHERE s.user_id = $1 GROUP BY s.total_budget;",
+      [user_id]
+    );
+    if (result.rows.length === 0) {
+      console.log(`No saved_total found for user ${user_id}`);
+      return { total_budget: 0 };
+    }
+
+    return result.rows[0];
   } catch (err) {
     console.error("Could not get budget", err);
+  }
+};
+
+const getEnvelopeById = async (id, user_id) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM budget_entries WHERE id = $1 AND user_id = $2;",
+      [id, user_id]
+    );
+    return result.rows[0];
+  } catch (err) {
+    console.error("Could not get envelope by ID", err);
   }
 };
 
@@ -112,4 +134,6 @@ module.exports = {
   transferBetweenEntries,
   setSavedTotal,
   getSavedTotal,
+  getEnvelopeById,
+  pool,
 };

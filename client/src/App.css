@@ -23,6 +23,7 @@ button:active {
   font-family: "Montserrat", sans-serif;
   font-style: italic;
   font-weight: 600;
+  margin-top: 10px;
 }
 
 .budget-field {

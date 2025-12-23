@@ -1,4 +1,3 @@
-import React from "react";
 import { handleEdit } from "../../api/budgetActions";
 import "./EditMode.css";
 function EditMode({
@@ -11,19 +10,27 @@ function EditMode({
   setEditId,
   savedTotal,
   setSavedTotal,
+  user,
+  setError,
 }) {
   return (
     <div className="edit-container">
       <input
         className="input"
         value={newTitle}
-        onChange={(e) => setNewTitle(e.target.value)}
+        onChange={(e) => {
+          setNewTitle(e.target.value);
+          setError(null);
+        }}
       />
 
       <input
         className="input"
         value={newBudget}
-        onChange={(e) => setNewBudget(Number(e.target.value))}
+        onChange={(e) => {
+          setNewBudget(Number(e.target.value));
+          setError(null);
+        }}
       />
       <button
         className="save-button"
@@ -35,7 +42,9 @@ function EditMode({
             newBudget,
             setEntry,
             savedTotal,
-            setSavedTotal
+            setSavedTotal,
+            user,
+            setError
           );
           setEditId(null);
           setNewTitle("");

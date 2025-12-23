@@ -1,6 +1,8 @@
-const fetchEnvelopes = async () => {
+const fetchEnvelopes = async (user) => {
   try {
-    const envelopeResponse = await fetch(`/envelopes`);
+    const envelopeResponse = await fetch(`/envelopes`, {
+      headers: { user_id: user.uid },
+    });
     const data = await envelopeResponse.json();
     return data;
   } catch (error) {
@@ -8,29 +10,38 @@ const fetchEnvelopes = async () => {
   }
 };
 
-export const fetchBudget = async () => {
+export const fetchBudget = async (user) => {
   try {
-    const budgetResponse = await fetch(`/total-budget`);
+    const budgetResponse = await fetch(`/total-budget`, {
+      headers: { user_id: user.uid },
+    });
     const data = await budgetResponse.json();
-    return data;
+    return data.remaining_budget;
   } catch (error) {
     console.error(`Error getting total budget: ${error}`);
   }
 };
 
-export const fetchTotalBudget = async (total_budget) => {
+export const fetchTotalBudget = async (total_budget, user) => {
   try {
     const budgetResponse = await fetch(`/total-budget/total_budget`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        user_id: user.uid,
       },
       body: JSON.stringify({ total_budget }),
     });
-    const data = await budgetResponse.json();
-    return data;
+    if (!budgetResponse.ok) {
+      const errorData = await budgetResponse.json();
+      throw new Error(errorData.error);
+    } else {
+      const data = await budgetResponse.json();
+      return data.total_budget;
+    }
   } catch (error) {
     console.error(`Error fetching budget data: ${error}`);
+    throw error;
   }
 };
 

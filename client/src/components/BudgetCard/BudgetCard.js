@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import fetchEnvelopes from "../../api/api";
 import "./BudgetCard.css";
 import DetailedView from "../DetailedView/DetailedView";
-function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal }) {
+function BudgetCard({
+  entry,
+  setEntry,
+  savedTotal,
+  setSavedTotal,
+  user,
+  setError,
+}) {
   const [editId, setEditId] = useState(null);
   const [viewId, setViewId] = useState(null);
   const [transferId, setTransferId] = useState(null);
@@ -10,11 +17,11 @@ function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal }) {
   const [newBudget, setNewBudget] = useState(0);
   useEffect(() => {
     const getEnvelopes = async () => {
-      const data = await fetchEnvelopes();
+      const data = await fetchEnvelopes(user);
       setEntry(data);
     };
     getEnvelopes();
-  }, [setEntry]);
+  }, [setEntry, user]);
   return (
     <div>
       {!entry || entry.length === 0 ? (
@@ -54,6 +61,8 @@ function BudgetCard({ entry, setEntry, savedTotal, setSavedTotal }) {
                   setTransferId={setTransferId}
                   savedTotal={savedTotal}
                   setSavedTotal={setSavedTotal}
+                  user={user}
+                  setError={setError}
                 />
               )}
             </span>
