@@ -19,7 +19,7 @@ Aura Finance is a simple fullstack budget planner that allows users to set a tot
 
 ## Description
 
-This project uses the budget-api I built as part of Codecademys Back-End Engineer career path, I decided to add a simple user interface to it using React after completing the API to make it my first fullstack application! The API was built using Express.js, and I used Node.js to run the server. Originally, the app would display a default list of budget entries, and the API would add and pull data from a mock database I had created in the api folder. However, shortly after completing the project, I decided to replace this with a real PostgreSQL database instead. I found creating the new database, and hooking up my API to PostgreSQL both fun and challenging. Refactoring my original routes to interact with the real database was also very engaging.
+This project uses the budget-api I built as part of Codecademys Back-End Engineer career path, I decided to add a simple user interface to it using React after completing the API to make it my first fullstack application! The API was built using Express.js, and I used Node.js to run the server. Originally, the app would display a default list of budget entries, and the API would add and pull data from a mock database I had created in the api folder. However, shortly after completing the project, I decided to replace this with a real PostgreSQL database instead. I found creating the new database, and hooking up my API to PostgreSQL both fun and challenging. Refactoring the original routes to work with the PostgreSQL database was also very engaging.
 
 The original version of the app allowed users to:
 
@@ -32,17 +32,19 @@ The original version of the app allowed users to:
 2. Edit the current entries title or amount
 3. Transfer funds between 2 entries
 
-After refactoring to use PostgreSQL, the app now:
+After refactoring to use PostgreSQL and Google Firebase, the app now:
 
+- Makes the user sign in on first launch.
+- Creates a personal user ID on sign in.
 - Adds budget entries and total to a real PostgreSQL database.
 - Lets users set their own budget and create entries which will deduct from their saved total.
+- Filters through the database to only show the total budget and entries that match their user ID.
 - Features updated API routes to interact with SQL functions.
 - Retains the detailed view feature with the same options as before.
 - Prevents users from setting a negative total amount or creating an entry with a negative budget.
+- Prevent users from deleting, editing, or transferring entries that don't belong to them.
 - Keeps and saves entries and total amount on refresh.
 - Adds any leftover money back to total amount if entry is deleted.
-
-I'm currently making the app personalized for each user. Users can sign in via Google Firebase, and I'm refactoring the SQL queries, API routes, and helper functions to show only entries and budgets matching the signed-in user’s ID. The sign-in feature is optional for now, but the final version will require users to sign in before using the app.
 
 ## Why I built this
 
@@ -55,7 +57,7 @@ I used Render to host the front end and back end, and used Neon to host the data
 **Note:**
 
 - The app may be slow at first, this is because I used the free tier on Render to host the app, which will cause the app to "go to sleep" after a period of inactivity.
-- The app currently pools all budgets together so users may see entries created by other users. I plan on adding user authentication so the app is personalized for each user.
+- You may see multiple different branches in the repository, I've left them there intentionally to show my understanding of branching out and merging changes in Git.
 
 ## Contributors
 
