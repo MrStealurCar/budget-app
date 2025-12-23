@@ -62,11 +62,9 @@ envelopeRouter.put("/:id", async (req, res, next) => {
   if (!user_id) {
     return res.status(400).send({ error: "User ID not found" });
   } else if (!envelope) {
-    return res
-      .status(404)
-      .send({
-        error: "Budget does not exist or incorrect permissions to edit.",
-      });
+    return res.status(404).send({
+      error: "Budget does not exist or incorrect permissions to edit.",
+    });
   } else if (envelopeBudget < MIN_BUDGET_AMT) {
     return res.status(400).send({
       error: `Budget must be at least $${MIN_BUDGET_AMT}.`,
