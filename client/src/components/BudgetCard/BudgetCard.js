@@ -9,6 +9,8 @@ function BudgetCard({
   setSavedTotal,
   user,
   setError,
+  isLoading,
+  setIsLoading,
 }) {
   const [editId, setEditId] = useState(null);
   const [viewId, setViewId] = useState(null);
@@ -17,20 +19,29 @@ function BudgetCard({
   const [newBudget, setNewBudget] = useState(0);
   useEffect(() => {
     const getEnvelopes = async () => {
-      const data = await fetchEnvelopes(user);
-      setEntry(data);
+      if (!user) return;
+      setIsLoading(true);
+      try {
+        const data = await fetchEnvelopes(user);
+        setEntry(data);
+      } finally {
+        setIsLoading(false);
+      }
     };
     getEnvelopes();
-  }, [setEntry, user]);
+  }, [setEntry, user, setIsLoading]);
   return (
     <div>
-      {!entry || entry.length === 0 ? (
+      {isLoading ? (
+        <p className="loading-message">Loading budget entries...</p>
+      ) : !entry || entry.length === 0 ? (
         <p className="entry-prompt">No current budget entries</p>
       ) : (
         <div className="data-container">
           <div className="title">
             <h2>Entries:</h2>
           </div>
+          {/* Map through entry array and display them */}
           {entry.map((item) => (
             <span key={item.id} className="list-items">
               {item.title}: ${item.budget}
