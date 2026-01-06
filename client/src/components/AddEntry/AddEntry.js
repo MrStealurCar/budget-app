@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./AddEntry.css";
 import { handleCreate } from "../../api/budgetActions";
+import { FaSpinner } from "react-icons/fa";
+
 function AddEntry({ setEntry, savedTotal, setSavedTotal, user, setError }) {
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-
+  const [isSaving, setIsSaving] = useState(false);
   return (
     <div>
       <div className="create-entry">
@@ -46,22 +48,28 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal, user, setError }) {
           <div className="button-container">
             <button
               className="entry-action-buttons"
-              onClick={() => {
-                handleCreate(
-                  title,
-                  budget,
-                  setEntry,
-                  setTitle,
-                  setBudget,
-                  savedTotal,
-                  setSavedTotal,
-                  setError,
-                  user
-                );
-                setIsVisible(null);
+              onClick={async () => {
+                setIsSaving(true);
+                try {
+                  await handleCreate(
+                    title,
+                    budget,
+                    setEntry,
+                    setTitle,
+                    setBudget,
+                    savedTotal,
+                    setSavedTotal,
+                    setError,
+                    user
+                  );
+                } finally {
+                  setIsSaving(false);
+                  setIsVisible(null);
+                }
               }}
+              disabled={isSaving}
             >
-              Save
+              {isSaving ? <FaSpinner className="loading-spinner" /> : "Save"}
             </button>
             <button
               className="entry-action-buttons"
