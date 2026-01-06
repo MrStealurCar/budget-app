@@ -1,5 +1,7 @@
 import { handleEdit } from "../../api/budgetActions";
 import "./EditMode.css";
+import { FaSpinner } from "react-icons/fa";
+import { useState } from "react";
 function EditMode({
   item,
   newTitle,
@@ -13,6 +15,7 @@ function EditMode({
   user,
   setError,
 }) {
+  const [isSaving, setIsSaving] = useState(false);
   return (
     <div className="edit-container">
       <input
@@ -34,24 +37,30 @@ function EditMode({
       />
       <button
         className="save-button"
-        onClick={() => {
-          handleEdit(
-            item.id,
-            item.budget,
-            newTitle,
-            newBudget,
-            setEntry,
-            savedTotal,
-            setSavedTotal,
-            user,
-            setError
-          );
-          setEditId(null);
-          setNewTitle("");
-          setNewBudget(0);
+        onClick={async () => {
+          setIsSaving(true);
+          try {
+            await handleEdit(
+              item.id,
+              item.budget,
+              newTitle,
+              newBudget,
+              setEntry,
+              savedTotal,
+              setSavedTotal,
+              user,
+              setError
+            );
+          } finally {
+            setIsSaving(false);
+            setEditId(null);
+            setNewTitle("");
+            setNewBudget(0);
+          }
         }}
+        disabled={isSaving}
       >
-        Save
+        {isSaving ? <FaSpinner className="loading-spinner" /> : "Save"}
       </button>
     </div>
   );

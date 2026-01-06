@@ -1,5 +1,7 @@
 import "./ActionButtons.css";
 import { handleDelete } from "../../api/budgetActions";
+import { useState } from "react";
+import { FaSpinner } from "react-icons/fa";
 function ActionButtons({
   editId,
   setEditId,
@@ -12,24 +14,31 @@ function ActionButtons({
   setTransferId,
   user,
 }) {
+  const [isDeleting, setIsDeleting] = useState(false);
   return (
     <div className="handler-buttons">
       <button
         className="action-button"
         style={{ color: "red" }}
         title="Delete entry"
-        onClick={() => {
-          handleDelete(item.id, setEntry, setSavedTotal, user);
+        onClick={async () => {
+          setIsDeleting(true);
+          try {
+            await handleDelete(item.id, setEntry, setSavedTotal, user);
+          } finally {
+            setIsDeleting(false);
+          }
         }}
+        disabled={isDeleting}
       >
-        Delete
+        {isDeleting ? <FaSpinner className="loading-spinner" /> : "Delete"}
       </button>
       <button
         className="action-button"
         style={{ color: "blue" }}
         title="Edit entry"
         onClick={() => {
-          setEditId(editId === item.id ? null : item.id);
+          setEditId(editId === item.id ? null : item.id); // Toggle edit mode
           setNewTitle(item.title);
           setNewBudget(item.budget);
           setTransferId(null);
@@ -43,7 +52,7 @@ function ActionButtons({
         style={{ color: "green" }}
         title="Transfer funds"
         onClick={() => {
-          setTransferId(transferId === item.id ? null : item.id);
+          setTransferId(transferId === item.id ? null : item.id); // Toggle transfer mode
           setEditId(null);
         }}
       >

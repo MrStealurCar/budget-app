@@ -1,10 +1,18 @@
 import { useState } from "react";
 import "./TransferMode.css";
+import { FaSpinner } from "react-icons/fa";
 import { handleTransfer } from "../../api/budgetActions";
-function TransferMode({ sourceId, entry, setEntry, user, setError }) {
+function TransferMode({
+  sourceId,
+  entry,
+  setEntry,
+  user,
+  setError,
+  setTransferId,
+}) {
   const [transferAmount, setTransferAmount] = useState("");
   const [destination, setDestination] = useState(null);
-
+  const [isTransferring, setIsTransferring] = useState(false);
   return (
     <div className="transfer-mode">
       <select onChange={(e) => setDestination(Number(e.target.value))} required>
@@ -27,18 +35,29 @@ function TransferMode({ sourceId, entry, setEntry, user, setError }) {
       />
       <button
         className="transfer-button"
-        onClick={() => {
-          handleTransfer(
-            sourceId,
-            destination,
-            transferAmount,
-            setEntry,
-            user,
-            setError
-          );
+        onClick={async () => {
+          setIsTransferring(true);
+          try {
+            await handleTransfer(
+              sourceId,
+              destination,
+              transferAmount,
+              setEntry,
+              user,
+              setError
+            );
+          } finally {
+            setIsTransferring(false);
+            setTransferId(null);
+          }
         }}
+        disabled={isTransferring}
       >
-        Transfer
+        {isTransferring ? (
+          <FaSpinner className="loading-spinner" />
+        ) : (
+          "Transfer"
+        )}
       </button>
     </div>
   );
