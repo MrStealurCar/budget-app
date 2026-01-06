@@ -9,19 +9,27 @@ import SignIn from "./components/SignIn/SignIn";
 import { handleSetBudget } from "./api/budgetActions";
 import { getWelcomeMessage, getFirstName } from "./utils/helpers";
 import { fetchBudget } from "./api/api";
+import { FaSpinner } from "react-icons/fa";
 
 function App() {
   const [entry, setEntry] = useState([]);
   const [totalBudget, setTotalBudget] = useState(0);
   const [savedTotal, setSavedTotal] = useState(0);
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const getBudget = async () => {
       if (!user) return;
-      const data = await fetchBudget(user);
-      setSavedTotal(data);
+      if (user) setIsLoading(true);
+      try {
+        const data = await fetchBudget(user);
+        setSavedTotal(data);
+      } finally {
+        setIsLoading(false);
+      }
     };
     getBudget();
   }, [user, setSavedTotal]);
@@ -60,16 +68,26 @@ function App() {
                   <button
                     className="save-button"
                     onClick={async () => {
-                      await handleSetBudget(
-                        totalBudget,
-                        setSavedTotal,
-                        setTotalBudget,
-                        setError,
-                        user
-                      );
+                      setIsSaving(true);
+                      try {
+                        await handleSetBudget(
+                          totalBudget,
+                          setSavedTotal,
+                          setTotalBudget,
+                          setError,
+                          user
+                        );
+                      } finally {
+                        setIsSaving(false);
+                      }
                     }}
+                    disabled={isSaving}
                   >
-                    Save
+                    {isSaving ? (
+                      <FaSpinner className="loading-spinner" />
+                    ) : (
+                      "Save"
+                    )}
                   </button>
                 </div>
                 <h3>
@@ -91,6 +109,8 @@ function App() {
                 setSavedTotal={setSavedTotal}
                 user={user}
                 setError={setError}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             </div>
             <div className="entry-container">
