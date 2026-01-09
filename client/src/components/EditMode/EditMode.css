@@ -1,25 +1,53 @@
 .edit-container {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .input {
-  margin-right: 5px;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  flex: 1;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: "Inter", sans-serif;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
 }
 
 .save-button {
-  border-radius: 5px;
-  max-width: 75px;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
 }
 
-@media screen and (max-width: 450px) {
+.save-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+}
+
+@media screen and (max-width: 768px) {
   .edit-container {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
 
   .input,
   .save-button {
-    margin-top: 5px;
+    margin-top: 0.5rem;
   }
 }
