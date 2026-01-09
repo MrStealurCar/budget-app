@@ -19,7 +19,7 @@ function AddEntry({ setEntry, savedTotal, setSavedTotal, user, setError }) {
         </button>
       </div>
       {isVisible && (
-        <div>
+        <div className="new-entry-form">
           <div className="input-container">
             <input
               value={title}
